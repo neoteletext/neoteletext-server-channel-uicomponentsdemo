@@ -1,9 +1,10 @@
 # neoteletext-server-channel-uicomponentsdemo
 
 The NeoTeletext component library's demo: a teletext channel whose pages
-show every component of `neoteletext-server-ts-ui-components` 2.0.0 working,
-a page or so to each, in eight magazines. It is the kitchensink, made
-again on the library's 2.0.0.
+show the components of `neoteletext-server-ts-ui-components` working, a
+page or so to each, in eight magazines. It is the kitchensink, made again
+on the library's 2.0.0, and runs on its 4.0.0: it shows every component
+2.0.0 had, and not yet the 34 that 3.0.0 added.
 
 It is a channel program: the server starts it and they talk in lines of
 JSON on its standard input and output (teletext-server's
@@ -16,7 +17,8 @@ released into `vendor/`:
 
 ## Running it
 
-It needs Node 22.18 or later, which runs the `.ts` files as they are.
+It needs Node 22.18 or later, which runs the `.ts` files as they are, and
+ffmpeg with libopus on the `PATH`, which encodes its sounds as Opus.
 
     npm ci --ignore-scripts --no-audit --no-fund
     node src/main.ts [--pictures FOLDER]

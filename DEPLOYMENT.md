@@ -5,6 +5,13 @@ neoteletext-server-channels' `channels.json`. teletext-server's
 `scripts/deploy.sh` deploys it with the server: there is no deploy of
 this repository on its own.
 
+## What the host needs
+
+- **ffmpeg with libopus**, on the service's `PATH`: every sound and stream
+  is encoded as Opus with it (the component library's 4.0.0).
+  `foundintelquiet4060` has it (`/usr/bin/ffmpeg`, checked on 28 October
+  2026).
+
 ## What the deploy does
 
 - **The entry.** neoteletext-server-channels' `channels.json` names the
