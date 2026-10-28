@@ -9,12 +9,14 @@ import { join } from "node:path";
 import { test } from "node:test";
 
 import { MOST_SUBPAGES } from "neoteletext-server-ts-protocol";
-import { shows } from "neoteletext-server-ts-protocol/testing";
+import { shows, text } from "neoteletext-server-ts-protocol/testing";
 import { loadPictures } from "../src/assets/pictures.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel } from "./channel.ts";
 
 const VIEWER = 1;
+/** The rows the library draws a sub-page's title band over. */
+const BAND_ROWS = [1, 2];
 
 /** A page of TTI to stand for a converted picture: the channel's own text styles page, as it publishes it. */
 function someTti(): string {
@@ -36,20 +38,27 @@ function withFolder(files: Readonly<Record<string, string>>, use: (folder: strin
   }
 }
 
-test("the pictures are read by their captions, and a name that is a path is refused", () => {
+test("the pictures are read by their captions and shown whole, with no title band, and a name that is a path is refused", () => {
   const tti = someTti();
   withFolder(
     { "captions.tsv": "e01\te\tA sink, by hand\n../e02\te\tOutside\ne03\te\tNo files\nshort line\n", "e01_l25.tti": tti, "e02_l25.tti": tti },
     (folder) => {
       const pictures = loadPictures(folder);
       assert.deepEqual(
-        pictures.map((picture) => [picture.name, picture.caption, picture.levels.map((level) => level.level)]),
-        [["e01", "A sink, by hand", ["l25"]]],
+        pictures.map((picture) => [picture.name, picture.levels.map((level) => level.level)]),
+        [["e01", ["l25"]]],
       );
       const harness = channel(pictures);
       harness.join(VIEWER, PAGES.gallery);
       assert.equal(harness.sharedPages(PAGES.gallery).length, 1);
-      assert.ok(shows(harness.seen(VIEWER, PAGES.gallery).rows, "A sink, by hand"));
+      const shown = harness.seen(VIEWER, PAGES.gallery).rows;
+      assert.ok(!shows(shown, "A sink, by hand"));
+      // The rows a title band would cover are the picture's own.
+      harness.join(VIEWER, PAGES.textStyles);
+      const picture = harness.seen(VIEWER, PAGES.textStyles).rows;
+      for (const row of BAND_ROWS) {
+        assert.equal(text(shown, row), text(picture, row), `row ${row}`);
+      }
       assert.deepEqual(harness.errors, []);
     },
   );
