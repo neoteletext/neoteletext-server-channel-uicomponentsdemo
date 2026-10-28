@@ -34,7 +34,7 @@ export class FieldsPage extends Component<object, { readonly submitted: string }
           this.setState({ submitted });
         },
       }),
-      h(TextField, { label: "Password", longest: LONGEST_PASSWORD, masked: true, placeholder: "echoed as *" }),
+      h(TextField, { label: "Password", longest: LONGEST_PASSWORD, masked: true, placeholder: "shown as *" }),
       h(TextField, { label: "Email", longest: LONGEST_NAME, validate: (text) => (text === "" || ADDRESS.test(text) ? null : "not an address yet") }),
       h(TextField, { label: "Locked", longest: LONGEST_PASSWORD, disabled: true, initial: "cannot change" }),
       h(TextField, { label: "Magenta", longest: LONGEST_NAME, background: Colour.Magenta, initial: "given to begin with" }),
