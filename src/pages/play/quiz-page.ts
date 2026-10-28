@@ -1,7 +1,7 @@
 // Page 700, a quiz: four answers to each question, chosen by colour key or
 // click, with a sound for right and wrong. Each viewer's own.
 
-import { type Child, Component, h, Quiz } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Quiz } from "neoteletext-server-ts-ui-components";
 import { SOUNDS } from "../../assets/sounds.ts";
 import { QUESTIONS } from "../../content/questions.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";

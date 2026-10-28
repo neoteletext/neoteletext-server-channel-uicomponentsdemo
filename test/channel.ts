@@ -1,8 +1,8 @@
 // The channel without pictures, or with the ones given, driven as the
 // server drives it.
 
-import { Harness } from "neottx-server-ts-protocol/testing";
-import { ComponentChannel } from "neottx-server-ts-ui-components";
+import { Harness } from "neoteletext-server-ts-protocol/testing";
+import { ComponentChannel } from "neoteletext-server-ts-ui-components";
 import type { PictureFile } from "../src/assets/pictures.ts";
 import { pages } from "../src/site/pages.ts";
 

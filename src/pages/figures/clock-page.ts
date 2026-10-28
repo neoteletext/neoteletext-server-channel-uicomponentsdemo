@@ -1,8 +1,8 @@
 // Page 403, the time: a clock, the date in each of the library's formats,
 // and the time in large digits that move each second.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { BigDigits, type Child, Clock, Component, DATE_FORMATS, DateText, Gap, h, Table, formatDate } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { BigDigits, type Child, Clock, Component, DATE_FORMATS, DateText, Gap, h, Table, formatDate } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

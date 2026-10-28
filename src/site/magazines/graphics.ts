@@ -1,6 +1,6 @@
 // Magazine 5, graphics: mosaics, the converted pictures, paint, animation.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import type { Assets } from "../../assets/assets.ts";
 import { AnimationPage } from "../../pages/graphics/animation-page.ts";
 import { GalleryPage } from "../../pages/graphics/gallery-page.ts";

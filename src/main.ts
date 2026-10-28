@@ -1,5 +1,5 @@
 // The UI components demo, the component library's own channel: every
-// component of neottx-server-ts-ui-components working, a page each, in
+// component of neoteletext-server-ts-ui-components working, a page each, in
 // eight magazines. It is its own program (teletext-server's
 // docs/applications.md), which the server starts from its channels.json
 // and talks to over standard input and output.
@@ -11,8 +11,8 @@
 
 import { parseArgs } from "node:util";
 
-import { runChannel } from "neottx-server-ts-protocol";
-import { ComponentChannel } from "neottx-server-ts-ui-components";
+import { runChannel } from "neoteletext-server-ts-protocol";
+import { ComponentChannel } from "neoteletext-server-ts-ui-components";
 import { loadPictures } from "./assets/pictures.ts";
 import { pages } from "./site/pages.ts";
 

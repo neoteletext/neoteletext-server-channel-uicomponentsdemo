@@ -1,7 +1,7 @@
 // Page 306, a log that fills as the page runs, and text to scroll.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, type Line, type LogEntry, type LogLevel, LogView, ScrollingText } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, type Line, type LogEntry, type LogLevel, LogView, ScrollingText } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

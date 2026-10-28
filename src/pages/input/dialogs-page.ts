@@ -2,8 +2,21 @@
 // a field, and a wait that closes itself. A dialog keeps the keys until it
 // is answered.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Button, type Child, Columns, Component, Dialog, type Element, Gap, h, Modal, Paragraph, Spinner, TextField } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import {
+  Button,
+  type Child,
+  Columns,
+  Component,
+  Dialog,
+  type Element,
+  Gap,
+  h,
+  Modal,
+  Paragraph,
+  Spinner,
+  TextField,
+} from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { setterOf } from "../../parts/setter.ts";
 import { PAGES } from "../../site/page-numbers.ts";

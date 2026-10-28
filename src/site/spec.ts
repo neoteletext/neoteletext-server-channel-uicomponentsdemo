@@ -1,7 +1,7 @@
 // A page's spec: its number, its title from the map, its root, and how it
 // is shared.
 
-import type { Element, PageSpec } from "neottx-server-ts-ui-components";
+import type { Element, PageSpec } from "neoteletext-server-ts-ui-components";
 import { entryOf } from "./site-map.ts";
 
 /** How a page is shared, beside its root. */

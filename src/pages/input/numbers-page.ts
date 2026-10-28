@@ -1,7 +1,7 @@
 // Page 602, numbers: sliders, filled and with a unit, and a number to step.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, NumberInput, Slider, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, NumberInput, Slider, Text } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { setterOf } from "../../parts/setter.ts";
 import { PAGES } from "../../site/page-numbers.ts";

@@ -1,8 +1,8 @@
 // Page 400, bars across and columns up, from the week's figures; a bar
 // chosen is said under them.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Bar, BarChart, type Child, Columns, ColumnChart, Component, Gap, h, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Bar, BarChart, type Child, Columns, ColumnChart, Component, Gap, h, Text } from "neoteletext-server-ts-ui-components";
 import { PAGE_BARS, VISITOR_BARS } from "../../content/figures.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";

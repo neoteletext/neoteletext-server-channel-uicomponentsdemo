@@ -1,7 +1,7 @@
 // Page 603, a form: labelled fields, a button that sends it and a toast
 // that says so, and actions a click acts on. Each viewer's own copy.
 
-import { Colour } from "neottx-server-ts-protocol";
+import { Colour } from "neoteletext-server-ts-protocol";
 import {
   Action,
   Button,
@@ -17,7 +17,7 @@ import {
   TextField,
   type Ticked,
   ToastShelf,
-} from "neottx-server-ts-ui-components";
+} from "neoteletext-server-ts-ui-components";
 import { SOUNDS } from "../../assets/sounds.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { setterOf } from "../../parts/setter.ts";

@@ -1,7 +1,7 @@
 // Page 101, every component A to Z: a list to choose from, and a choice
 // goes to the page that shows it.
 
-import { type Child, ChoiceList, Component, h, pageNumber } from "neottx-server-ts-ui-components";
+import { type Child, ChoiceList, Component, h, pageNumber } from "neoteletext-server-ts-ui-components";
 import { CATALOGUE, type CatalogueEntry } from "../../content/catalogue.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";

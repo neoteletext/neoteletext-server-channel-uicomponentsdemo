@@ -1,8 +1,8 @@
 // Page 405, this month's calendar: today marked, the sample articles'
 // days marked, and a day to choose.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Calendar, type CalendarDate, type Child, Component, Gap, h, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Calendar, type CalendarDate, type Child, Component, Gap, h, Text } from "neoteletext-server-ts-ui-components";
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";

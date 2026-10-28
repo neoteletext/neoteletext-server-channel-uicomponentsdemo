@@ -1,8 +1,8 @@
 # neoteletext-server-channel-uicomponentsdemo
 
 The NeoTeletext component library's demo channel: a channel program in
-TypeScript, on the server's channel protocol (neottx-server-ts-protocol)
-and the component library (neottx-server-ts-ui-components), both
+TypeScript, on the server's channel protocol (neoteletext-server-ts-protocol)
+and the component library (neoteletext-server-ts-ui-components), both
 released into `vendor/`. These rules add to `~/.claude/CLAUDE.md`.
 
 ## Working on the code

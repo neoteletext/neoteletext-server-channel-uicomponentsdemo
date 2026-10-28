@@ -1,6 +1,6 @@
 // Each magazine's band and the ink on it, as the browser colours magazines.
 
-import { Colour } from "neottx-server-ts-protocol";
+import { Colour } from "neoteletext-server-ts-protocol";
 
 /** A magazine's title band. */
 export interface Look {

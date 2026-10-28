@@ -1,8 +1,8 @@
 // Page 204, boxes and lines: panels with a line or a band, and every
 // style of rule.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Columns, Component, Gap, h, Panel, Paragraph, Rule, type RuleStyle } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Columns, Component, Gap, h, Panel, Paragraph, Rule, type RuleStyle } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

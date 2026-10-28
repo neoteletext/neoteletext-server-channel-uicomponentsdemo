@@ -1,6 +1,6 @@
 // Magazine 3, navigation and lists.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { ChoosingPage } from "../../pages/lists/choosing-page.ts";
 import { LogsPage } from "../../pages/lists/logs-page.ts";
 import { TablesPage } from "../../pages/lists/tables-page.ts";

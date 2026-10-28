@@ -1,7 +1,7 @@
 // Magazine 8, documents: one long document, a day a sub-page, and a page
 // for each sample article.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { ARTICLES } from "../../content/articles.ts";
 import { DaysPage } from "../../pages/documents/days-page.ts";
 import { DocumentPage } from "../../pages/documents/document-page.ts";

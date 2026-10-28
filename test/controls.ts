@@ -3,8 +3,8 @@
 
 import assert from "node:assert/strict";
 
-import { type Harness, text } from "neottx-server-ts-protocol/testing";
-import { readControls } from "neottx-server-ts-ui-components";
+import { type Harness, text } from "neoteletext-server-ts-protocol/testing";
+import { readControls } from "neoteletext-server-ts-ui-components";
 
 interface Place {
   readonly row: number;

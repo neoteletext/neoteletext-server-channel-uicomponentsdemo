@@ -1,8 +1,8 @@
 // Page 201, runs of styled text in one paragraph, badges to click, and
 // bylines.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Badges, Byline, type Child, Component, Gap, h, RichText, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Badges, Byline, type Child, Component, Gap, h, RichText, Text } from "neoteletext-server-ts-ui-components";
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";

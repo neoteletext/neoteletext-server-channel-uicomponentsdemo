@@ -1,8 +1,8 @@
 // Page 203, the layouts: rows, columns with fixed and shared widths, a
 // grid, layers with places, centring, and gaps that grow.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { At, Band, type Child, Centred, Columns, Component, Gap, Grid, h, Layers, Rows, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { At, Band, type Child, Centred, Columns, Component, Gap, Grid, h, Layers, Rows, Text } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

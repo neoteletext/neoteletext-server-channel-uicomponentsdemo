@@ -1,7 +1,7 @@
 // The sounds the pages play, made from tones: nothing is read for them.
 // Frequencies are in hertz, lengths in milliseconds, loudness 0 to 1.
 
-import { noise, sequence, sound, type Sound, tone } from "neottx-server-ts-ui-components";
+import { noise, sequence, sound, type Sound, tone } from "neoteletext-server-ts-ui-components";
 
 /** C major from middle C up an octave, in hertz. */
 const SCALE_HZ = [262, 294, 330, 349, 392, 440, 494, 523];

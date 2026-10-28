@@ -1,7 +1,7 @@
 // Page 502, a picture in a box: a converted picture's rows inside the
 // frame, at each of its levels as a sub-page.
 
-import { type Child, Component, h, Picture, Placeholder, Rows } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Picture, Placeholder, Rows } from "neoteletext-server-ts-ui-components";
 import type { PictureFile } from "../../assets/pictures.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";

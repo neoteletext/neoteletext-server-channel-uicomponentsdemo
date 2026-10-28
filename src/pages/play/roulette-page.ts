@@ -1,6 +1,6 @@
 // Page 702, article roulette: spin, and land on an article to read.
 
-import { type Child, Component, h, Roulette } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Roulette } from "neoteletext-server-ts-ui-components";
 import { SOUNDS } from "../../assets/sounds.ts";
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";

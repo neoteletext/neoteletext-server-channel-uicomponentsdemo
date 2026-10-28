@@ -1,8 +1,8 @@
 // Page 605, a wizard: steps in turn, each ready only when its part is
 // done, and a summary at the end.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, h, Paragraph, RadioGroup, Switch, TextField, Wizard } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, h, Paragraph, RadioGroup, Switch, TextField, Wizard } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { setterOf } from "../../parts/setter.ts";
 import { PAGES } from "../../site/page-numbers.ts";

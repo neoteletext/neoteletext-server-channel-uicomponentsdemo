@@ -1,8 +1,8 @@
 // Page 302, a tree of the library's own parts, joined by mosaic guides;
 // an item with a page goes there.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, Text, Tree, type TreeNode } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, Text, Tree, type TreeNode } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

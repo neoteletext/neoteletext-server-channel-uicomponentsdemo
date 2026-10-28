@@ -1,8 +1,8 @@
 // Page 103, a greeting: each viewer's own copy of the page, which greets
 // them by the name they type.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, DoubleHeight, Gap, h, Paragraph, TextField } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, DoubleHeight, Gap, h, Paragraph, TextField } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

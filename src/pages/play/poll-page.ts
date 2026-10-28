@@ -1,7 +1,7 @@
 // Page 701, a live poll: one tally the whole channel shares, so a vote
 // moves the bars on every viewer's screen.
 
-import { type Child, Component, h, Poll, type Tally } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Poll, type Tally } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

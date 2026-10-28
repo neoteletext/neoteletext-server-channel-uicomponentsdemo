@@ -1,6 +1,6 @@
 // Magazine 6, input and feedback.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { ChoicesPage } from "../../pages/input/choices-page.ts";
 import { DialogsPage } from "../../pages/input/dialogs-page.ts";
 import { FeedbackPage } from "../../pages/input/feedback-page.ts";

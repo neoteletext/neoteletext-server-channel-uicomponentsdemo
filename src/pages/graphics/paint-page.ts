@@ -1,7 +1,7 @@
 // Page 503, paint: each viewer's own canvas of sixels to draw on with the
 // pointer, kept while they are away.
 
-import { type Child, Component, h, PaintCanvas } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, PaintCanvas } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

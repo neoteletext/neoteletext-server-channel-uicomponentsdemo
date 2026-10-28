@@ -1,7 +1,7 @@
 // Page 404, a countdown to the next new year, UTC.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Countdown, Gap, h, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Countdown, Gap, h, Text } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

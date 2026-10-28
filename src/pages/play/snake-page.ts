@@ -1,6 +1,6 @@
 // Page 703, snake: each viewer's own game, on the arrows.
 
-import { type Child, Component, h, Snake } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Snake } from "neoteletext-server-ts-ui-components";
 import { SOUNDS } from "../../assets/sounds.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";

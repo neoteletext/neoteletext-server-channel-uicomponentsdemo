@@ -9,8 +9,8 @@ what runs. Every command below is run from the repository's root.
 - **Node 22.18 or later.** `scripts/check.sh` refuses an older one.
 - **TypeScript 7.0.2**, the latest release, pinned in `package-lock.json`
   with the other tools and installed by `npm ci`.
-- **The kits**, neottx-server-ts-protocol 0.2.0 and
-  neottx-server-ts-ui-components 2.0.0: their releases in `vendor/`,
+- **The kits**, neoteletext-server-ts-protocol 0.2.0 and
+  neoteletext-server-ts-ui-components 2.0.0: their releases in `vendor/`,
   which `npm ci` installs. Each is built and released in its own
   repository under `~/devel`; a new release is copied into `vendor/` and
   `package.json` names it.

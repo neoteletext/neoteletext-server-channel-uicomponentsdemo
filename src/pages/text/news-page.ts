@@ -1,8 +1,8 @@
 // Page 202, the parts of a news page: headlines with their pages, links,
 // a newsflash and a ticker.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Band, type Child, Component, Gap, Grid, h, Headline, Newsflash, PageLink, Ticker } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Band, type Child, Component, Gap, Grid, h, Headline, Newsflash, PageLink, Ticker } from "neoteletext-server-ts-ui-components";
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";

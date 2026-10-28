@@ -1,8 +1,8 @@
 // The made-up figures the charts draw: a week of visitors to the channel,
 // and the hours of a week they came in.
 
-import { Colour } from "neottx-server-ts-protocol";
-import type { ChartRow, HeatRow } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import type { ChartRow, HeatRow } from "neoteletext-server-ts-ui-components";
 
 export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 

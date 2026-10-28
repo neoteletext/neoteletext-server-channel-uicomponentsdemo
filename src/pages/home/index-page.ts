@@ -1,7 +1,7 @@
 // Page 100, the index: the emblem, every magazine to go to, the newest
 // article and a ticker of the rest.
 
-import { Colour } from "neottx-server-ts-protocol";
+import { Colour } from "neoteletext-server-ts-protocol";
 import {
   At,
   Band,
@@ -19,7 +19,7 @@ import {
   PageLink,
   Paragraph,
   Ticker,
-} from "neottx-server-ts-ui-components";
+} from "neoteletext-server-ts-ui-components";
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
@@ -55,7 +55,7 @@ export class IndexPage extends Component {
         h(At, { row: 0, column: 1 }, h(Mosaic, { bitmap: EMBLEM, foreground: Colour.Cyan })),
         h(At, { row: 0, column: HEADING_COLUMN }, h(DoubleWidth, { text: "UI DEMO", foreground: Colour.Yellow })),
         h(At, { row: 2, column: HEADING_COLUMN }, h(Paragraph, { text: "every component, working", lines: 1 })),
-        h(At, { row: 3, column: HEADING_COLUMN }, h(Paragraph, { text: "neottx-server-ts-ui-components", foreground: Colour.Cyan, lines: 1 })),
+        h(At, { row: 3, column: HEADING_COLUMN }, h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1 })),
         h(At, { row: 5, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
       ),
       h(Band, { text: "THE MAGAZINES", background: Colour.Blue }),

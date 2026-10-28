@@ -3,9 +3,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { Key } from "neottx-server-ts-protocol";
-import { shows } from "neottx-server-ts-protocol/testing";
-import { DATE_FORMATS, formatDate } from "neottx-server-ts-ui-components";
+import { Key } from "neoteletext-server-ts-protocol";
+import { shows } from "neoteletext-server-ts-protocol/testing";
+import { DATE_FORMATS, formatDate } from "neoteletext-server-ts-ui-components";
 import { CATALOGUE } from "../src/content/catalogue.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel, STARTED } from "./channel.ts";

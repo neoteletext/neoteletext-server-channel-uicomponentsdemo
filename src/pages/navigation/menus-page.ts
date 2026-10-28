@@ -1,8 +1,8 @@
 // Page 301, a menu with submenus, rules and shortcuts, and the breadcrumbs
 // of the way down to the last choice.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Breadcrumbs, type Child, Component, Gap, h, Menu, type MenuItem, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Breadcrumbs, type Child, Component, Gap, h, Menu, type MenuItem, Text } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

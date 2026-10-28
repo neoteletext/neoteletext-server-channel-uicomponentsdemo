@@ -2,7 +2,7 @@
 // as the engine converted it, with its caption on the band. Without the
 // pictures folder, the page says so.
 
-import { type Child, Component, h, Placeholder, RawSubPage, Rows } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, Placeholder, RawSubPage, Rows } from "neoteletext-server-ts-ui-components";
 import { type PictureFile, ttiOf } from "../../assets/pictures.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { framingOf } from "../../parts/framing.ts";

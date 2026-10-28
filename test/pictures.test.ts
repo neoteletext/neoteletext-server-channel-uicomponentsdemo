@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
-import { shows } from "neottx-server-ts-protocol/testing";
+import { shows } from "neoteletext-server-ts-protocol/testing";
 import { loadPictures } from "../src/assets/pictures.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel } from "./channel.ts";

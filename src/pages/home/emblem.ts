@@ -1,7 +1,7 @@
 // The channel's emblem, a sink with its tap, drawn with Mosaic: 24 by 18
 // sixels, 12 cells by 6 rows.
 
-import type { Bitmap } from "neottx-server-ts-ui-components";
+import type { Bitmap } from "neoteletext-server-ts-ui-components";
 
 export const EMBLEM: Bitmap = [
   "............####........",

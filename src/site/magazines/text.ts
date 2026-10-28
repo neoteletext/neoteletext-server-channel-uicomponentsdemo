@@ -1,6 +1,6 @@
 // Magazine 2, text and layout.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { LayoutPage } from "../../pages/text/layout-page.ts";
 import { NewsPage } from "../../pages/text/news-page.ts";
 import { PanelsPage } from "../../pages/text/panels-page.ts";

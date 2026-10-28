@@ -1,8 +1,8 @@
 // Page 102, how the channel works: a Document, which flows its lines over
 // as many sub-pages as they need.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Document, h, type Line, TEXT_WIDTH, wrap } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Document, h, type Line, TEXT_WIDTH, wrap } from "neoteletext-server-ts-ui-components";
 import { framingOf } from "../../parts/framing.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 import { entryOf } from "../../site/site-map.ts";

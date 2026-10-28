@@ -2,7 +2,7 @@
 // magazine, green the page after, yellow the next magazine, cyan the index.
 // A viewer can walk the whole channel on the green key.
 
-import type { Prompts } from "neottx-server-ts-ui-components";
+import type { Prompts } from "neoteletext-server-ts-ui-components";
 import { PAGES } from "./page-numbers.ts";
 import { MAGAZINES, type MapEntry, placeOf } from "./site-map.ts";
 

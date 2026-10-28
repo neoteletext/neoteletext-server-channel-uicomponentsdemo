@@ -1,8 +1,8 @@
 // Page 303, sections that open and shut (an accordion), and pagination in
 // its three styles over one count.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Collapsible, Component, Gap, h, Pagination, Paragraph, Text } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Collapsible, Component, Gap, h, Pagination, Paragraph, Text } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

@@ -1,8 +1,8 @@
 // Page 401, a line chart with its area, sparklines in a row, and a
 // scatter of points.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, LineChart, ScatterPlot, Sparkline } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, LineChart, ScatterPlot, Sparkline } from "neoteletext-server-ts-ui-components";
 import { DAYS, VISITORS } from "../../content/figures.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";

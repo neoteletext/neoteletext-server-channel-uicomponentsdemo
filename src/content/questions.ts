@@ -1,6 +1,6 @@
 // The quiz's questions, about teletext.
 
-import type { Question } from "neottx-server-ts-ui-components";
+import type { Question } from "neoteletext-server-ts-ui-components";
 
 export const QUESTIONS: readonly Question[] = [
   { question: "How many rows has a teletext page?", answers: ["20", "24", "25", "40"], right: 2 },

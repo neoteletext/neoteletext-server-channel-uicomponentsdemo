@@ -1,6 +1,6 @@
 // Page 704, the sound board: every sound the channel makes, to play.
 
-import { type Child, Component, h, SoundList } from "neottx-server-ts-ui-components";
+import { type Child, Component, h, SoundList } from "neoteletext-server-ts-ui-components";
 import { SOUNDS } from "../../assets/sounds.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";

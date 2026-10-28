@@ -1,6 +1,6 @@
 // Magazine 1, home: the index, every component A to Z, how it works, a greeting.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { CataloguePage } from "../../pages/home/catalogue-page.ts";
 import { GreetingPage } from "../../pages/home/greeting-page.ts";
 import { HowPage } from "../../pages/home/how-page.ts";

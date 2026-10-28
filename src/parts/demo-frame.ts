@@ -1,7 +1,7 @@
 // The frame every page of the channel is drawn in: its title from the map,
 // its magazine's band, and the prompts that walk the map.
 
-import { type Child, Component, Frame, h } from "neottx-server-ts-ui-components";
+import { type Child, Component, Frame, h } from "neoteletext-server-ts-ui-components";
 import { PAGES } from "../site/page-numbers.ts";
 import { promptsFor } from "../site/prompts.ts";
 import { entryOf, magazineOf } from "../site/site-map.ts";

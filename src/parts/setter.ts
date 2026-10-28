@@ -1,7 +1,7 @@
 // A control's onChange that keeps its value in one field of a component's
 // state, for the many pages whose controls each own a field.
 
-import type { Component } from "neottx-server-ts-ui-components";
+import type { Component } from "neoteletext-server-ts-ui-components";
 
 /** A change of state to build field by field. */
 type Change<S> = { -readonly [Key in keyof S]?: S[Key] };

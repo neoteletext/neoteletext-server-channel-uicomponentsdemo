@@ -1,7 +1,7 @@
 // Page 300, tabs in each of their styles, each showing its views.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, Paragraph, TabView } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, Paragraph, TabView } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

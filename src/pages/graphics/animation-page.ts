@@ -1,8 +1,8 @@
 // Page 504, things that move: a bouncer every viewer shares, a wheel that
 // turns, and spinners in each style.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { At, Bouncer, type Child, Component, h, Layers, Spinner, type SpinnerStyle, Wheel } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { At, Bouncer, type Child, Component, h, Layers, Spinner, type SpinnerStyle, Wheel } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

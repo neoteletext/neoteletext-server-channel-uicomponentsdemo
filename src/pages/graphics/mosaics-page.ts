@@ -1,7 +1,7 @@
 // Page 500, mosaics: the emblem in three colours, and every icon.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Columns, Component, Gap, Grid, h, Icon, type IconName, Mosaic, Paragraph } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Columns, Component, Gap, Grid, h, Icon, type IconName, Mosaic, Paragraph } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";

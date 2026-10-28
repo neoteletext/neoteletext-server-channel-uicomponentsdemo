@@ -1,8 +1,8 @@
 // A line or two saying what a part of a page shows, in the channel's
 // caption colour.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, h, Paragraph } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, h, Paragraph } from "neoteletext-server-ts-ui-components";
 
 export interface NoteProps {
   readonly text: string;

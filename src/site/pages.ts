@@ -1,6 +1,6 @@
 // The channel's pages, magazine by magazine, in the map's order.
 
-import type { PageSpec } from "neottx-server-ts-ui-components";
+import type { PageSpec } from "neoteletext-server-ts-ui-components";
 import type { Assets } from "../assets/assets.ts";
 import { documentPages } from "./magazines/documents.ts";
 import { figurePages } from "./magazines/figures.ts";

@@ -1,8 +1,8 @@
 // Page 305, tables: a data table to sort and choose from, a table of
 // labels and values, and numbered rows of pages.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, DataTable, Gap, h, NumberedRows, Table, type TableColumn } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, DataTable, Gap, h, NumberedRows, Table, type TableColumn } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 import { MAGAZINES } from "../../site/site-map.ts";

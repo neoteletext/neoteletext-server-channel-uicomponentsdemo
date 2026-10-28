@@ -1,8 +1,8 @@
 // Page 600, typing: text fields with placeholders, a mask, a check and a
 // colour of their own, and an autocomplete over the components' names.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { Autocomplete, type Child, Component, Gap, h, Text, TextField } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { Autocomplete, type Child, Component, Gap, h, Text, TextField } from "neoteletext-server-ts-ui-components";
 import { CATALOGUE } from "../../content/catalogue.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";

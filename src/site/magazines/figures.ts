@@ -1,6 +1,6 @@
 // Magazine 4, figures and time.
 
-import { h, type PageSpec } from "neottx-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { BarsPage } from "../../pages/figures/bars-page.ts";
 import { CalendarPage } from "../../pages/figures/calendar-page.ts";
 import { ClockPage } from "../../pages/figures/clock-page.ts";

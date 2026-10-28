@@ -1,7 +1,7 @@
 // Pages 810 on, a story each: an article over its sub-pages, with where
 // else on the channel it is.
 
-import { type Article, type Child, Component, h, StoryPages } from "neottx-server-ts-ui-components";
+import { type Article, type Child, Component, h, StoryPages } from "neoteletext-server-ts-ui-components";
 import { framingOf } from "../../parts/framing.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

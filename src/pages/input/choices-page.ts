@@ -1,8 +1,8 @@
 // Page 601, controls that choose: a check box with its mixed state, a
 // group of them, radios down and across, switches, and a select.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Checkbox, CheckboxGroup, Component, Gap, h, RadioGroup, Select, Switch, Text, type Ticked } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Checkbox, CheckboxGroup, Component, Gap, h, RadioGroup, Select, Switch, Text, type Ticked } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { setterOf } from "../../parts/setter.ts";
 import { PAGES } from "../../site/page-numbers.ts";

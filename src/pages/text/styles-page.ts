@@ -1,7 +1,7 @@
 // Page 200, the text styles teletext has: colours, double height and
 // width, flashing, concealed, bands, wrapped paragraphs.
 
-import { Colour } from "neottx-server-ts-protocol";
+import { Colour } from "neoteletext-server-ts-protocol";
 import {
   Band,
   type Child,
@@ -16,7 +16,7 @@ import {
   Placeholder,
   RichText,
   Text,
-} from "neottx-server-ts-ui-components";
+} from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

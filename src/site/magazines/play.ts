@@ -1,7 +1,7 @@
 // Magazine 7, play: a quiz, a poll every viewer shares, roulette, snake,
 // sounds.
 
-import { h, type PageSpec, Tally } from "neottx-server-ts-ui-components";
+import { h, type PageSpec, Tally } from "neoteletext-server-ts-ui-components";
 import { PollPage } from "../../pages/play/poll-page.ts";
 import { QuizPage } from "../../pages/play/quiz-page.ts";
 import { RoulettePage } from "../../pages/play/roulette-page.ts";

@@ -1,8 +1,8 @@
 // A page's look and prompts for the library's components that draw their
 // own frame (documents, day pages, stories), from the map as DemoFrame's.
 
-import type { Colour } from "neottx-server-ts-protocol";
-import type { Prompts } from "neottx-server-ts-ui-components";
+import type { Colour } from "neoteletext-server-ts-protocol";
+import type { Prompts } from "neoteletext-server-ts-ui-components";
 import { PAGES } from "../site/page-numbers.ts";
 import { promptsFor } from "../site/prompts.ts";
 import { magazineOf } from "../site/site-map.ts";

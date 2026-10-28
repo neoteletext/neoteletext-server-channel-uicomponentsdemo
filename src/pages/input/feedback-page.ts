@@ -2,8 +2,8 @@
 // gauge, spinners that finish, notices of each kind, a status bar and the
 // keys' help.
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, Component, Gap, h, KeyHelp, type Kind, LineGauge, Notice, ProgressBar, Spinner, StatusBar } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, Component, Gap, h, KeyHelp, type Kind, LineGauge, Notice, ProgressBar, Spinner, StatusBar } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 

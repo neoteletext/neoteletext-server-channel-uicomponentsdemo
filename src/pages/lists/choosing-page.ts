@@ -1,8 +1,8 @@
 // Page 304, lists to choose from: one item (ChoiceList), or several
 // (ToggleList).
 
-import { Colour } from "neottx-server-ts-protocol";
-import { type Child, ChoiceList, Component, Gap, h, Text, ToggleList } from "neottx-server-ts-ui-components";
+import { Colour } from "neoteletext-server-ts-protocol";
+import { type Child, ChoiceList, Component, Gap, h, Text, ToggleList } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { setterOf } from "../../parts/setter.ts";
