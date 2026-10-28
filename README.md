@@ -60,6 +60,8 @@ demo is one walk on the green key.
   quiz's questions.
 - `src/assets/`: the pictures, read from the folder given, and the sounds.
 - `test/`: the tests, which drive the channel as the server does.
+- `scripts/`: `check.sh`, every check, and `deploy.sh`, the deploy of
+  this channel to app.neottx.com (`DEPLOYMENT.md`).
 
 ## Checks
 
