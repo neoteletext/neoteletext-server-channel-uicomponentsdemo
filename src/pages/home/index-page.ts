@@ -5,6 +5,7 @@ import { Colour } from "neoteletext-server-ts-protocol";
 import {
   At,
   Band,
+  BIG_ROWS,
   type Child,
   Clock,
   Component,
@@ -28,6 +29,10 @@ import { EMBLEM, EMBLEM_CELLS, EMBLEM_ROWS } from "./emblem.ts";
 
 /** Where the heading's words start: past the emblem and a cell. */
 const HEADING_COLUMN = EMBLEM_CELLS + 3;
+/** The clock's first row, under the heading's lines. */
+export const CLOCK_ROW = 5;
+/** The rows above the magazines: the emblem with a clear row under it, or the clock's large digits whole. */
+const TOP_ROWS = Math.max(EMBLEM_ROWS + 1, CLOCK_ROW + BIG_ROWS);
 /** The magazines' links, two across. */
 const LINK_COLUMNS = 2;
 /** How long each ticker item shows. */
@@ -51,12 +56,12 @@ export class IndexPage extends Component {
       { page: PAGES.index, bare: true, hint: "Type a page number or press a colour" },
       h(
         Layers,
-        { height: EMBLEM_ROWS + 1 },
+        { height: TOP_ROWS },
         h(At, { row: 0, column: 1 }, h(Mosaic, { bitmap: EMBLEM, foreground: Colour.Cyan })),
         h(At, { row: 0, column: HEADING_COLUMN }, h(DoubleWidth, { text: "UI DEMO", foreground: Colour.Yellow })),
         h(At, { row: 2, column: HEADING_COLUMN }, h(Paragraph, { text: "every component, working", lines: 1 })),
         h(At, { row: 3, column: HEADING_COLUMN }, h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1 })),
-        h(At, { row: 5, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
+        h(At, { row: CLOCK_ROW, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
       ),
       h(Band, { text: "THE MAGAZINES", background: Colour.Blue }),
       h(
