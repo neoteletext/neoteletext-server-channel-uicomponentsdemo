@@ -17,12 +17,14 @@ import { channel } from "./channel.ts";
 const VIEWER = 1;
 /** The rows the library draws a sub-page's title band over. */
 const BAND_ROWS = [1, 2];
+/** Row 0 of a converted picture: its columns 8 to 39 are the picture's own (the server's requirement 11.1). */
+const PICTURE_ROW_0 = "OL,0,        The top row of the picture";
 
-/** A page of TTI to stand for a converted picture: the channel's own text styles page, as it publishes it. */
+/** A page of TTI to stand for a converted picture: the channel's own text styles page, as it publishes it, with a row 0 of its own. */
 function someTti(): string {
   const harness = channel();
   const published = harness.sent.find((message) => message["type"] === "publish" && Number.parseInt(String(message["page"]), 16) === PAGES.textStyles);
-  return String(published?.["tti"]);
+  return `${PICTURE_ROW_0}\n${String(published?.["tti"]).replace(/^OL,0,.*\n/mu, "")}`;
 }
 
 /** A pictures folder holding `files`, removed after `use`. */
@@ -38,7 +40,7 @@ function withFolder(files: Readonly<Record<string, string>>, use: (folder: strin
   }
 }
 
-test("the pictures are read by their captions and shown whole, with no title band, and a name that is a path is refused", () => {
+test("the pictures are read by their captions and shown whole, row 0 too, with no title band, and a name that is a path is refused", () => {
   const tti = someTti();
   withFolder(
     { "captions.tsv": "e01\te\tA sink, by hand\n../e02\te\tOutside\ne03\te\tNo files\nshort line\n", "e01_l25.tti": tti, "e02_l25.tti": tti },
@@ -53,6 +55,7 @@ test("the pictures are read by their captions and shown whole, with no title ban
       assert.equal(harness.sharedPages(PAGES.gallery).length, 1);
       const shown = harness.seen(VIEWER, PAGES.gallery).rows;
       assert.ok(!shows(shown, "A sink, by hand"));
+      assert.match(text(shown, 0), /The top row of the picture/u, "the picture's own row 0");
       // The rows a title band would cover are the picture's own.
       harness.join(VIEWER, PAGES.textStyles);
       const picture = harness.seen(VIEWER, PAGES.textStyles).rows;
