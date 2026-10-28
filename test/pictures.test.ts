@@ -8,6 +8,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
+import { MOST_SUBPAGES } from "neoteletext-server-ts-protocol";
 import { shows } from "neoteletext-server-ts-protocol/testing";
 import { loadPictures } from "../src/assets/pictures.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
@@ -52,6 +53,27 @@ test("the pictures are read by their captions, and a name that is a path is refu
       assert.deepEqual(harness.errors, []);
     },
   );
+});
+
+test("only the examples, characters and sci-fi sprites are taken, in that order, and every group fits the gallery", () => {
+  const tti = someTti();
+  const lines = [
+    ["a001", "a", "Art"],
+    ["s01", "s", "Sprite 1"],
+    ...Array.from({ length: MOST_SUBPAGES }, (_, index) => [`c${index}`, "c", `Character ${index}`]),
+    ["s02", "s", "Sprite 2"],
+    ["e01", "e", "Example 1"],
+    ["p001", "p", "People"],
+  ];
+  const files: Record<string, string> = { "captions.tsv": `${lines.map((fields) => fields.join("\t")).join("\n")}\n` };
+  for (const [name = ""] of lines) {
+    files[`${name}_l25.tti`] = tti;
+  }
+  withFolder(files, (folder) => {
+    const names = loadPictures(folder).map((picture) => picture.name);
+    const characters = MOST_SUBPAGES - ["e01", "s01", "s02"].length;
+    assert.deepEqual(names, ["e01", ...Array.from({ length: characters }, (_, index) => `c${index}`), "s01", "s02"]);
+  });
 });
 
 test("with no pictures folder the picture pages say so", () => {

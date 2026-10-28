@@ -1,15 +1,23 @@
 // The converted pictures, from a folder given on the command line and read
 // once at the start: the engine's levels conversion, NAME_l15.tti,
 // NAME_l25.tti and NAME_l35.tti, with captions.tsv giving each name's group
-// and caption. Everything in the folder is untrusted: names are checked,
-// sizes and counts bounded.
+// and caption. Only the groups in GROUPS are taken. Everything in the
+// folder is untrusted: names are checked, sizes and counts bounded.
 
 import { readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
+import { MOST_SUBPAGES } from "neoteletext-server-ts-protocol";
+
 /** The levels each picture is converted at, by the names the folder gives them. */
 const LEVELS = ["l15", "l25", "l35"] as const;
 type Level = (typeof LEVELS)[number];
+
+/**
+ * The groups shown, in the order shown, by the letters the engine's levels
+ * page gives them: "Your examples", "Characters" and "Sci-fi sprites".
+ */
+const GROUPS = ["e", "c", "s"] as const;
 
 /** A converted picture: its name (such as e01), its caption, and its TTI at each level converted. */
 export interface PictureFile {
@@ -22,8 +30,8 @@ export interface PictureFile {
 const LONGEST_PICTURE = 256 * 1024;
 /** A few thousand pictures' lines of a few hundred characters. */
 const LONGEST_CAPTIONS = 4 * 1024 * 1024;
-/** The most pictures kept: the gallery shows each as a sub-page, and a page has a bounded number of them. */
-const MOST_PICTURES = 50;
+/** The most pictures kept: the gallery shows each as a sub-page of one page. */
+const MOST_PICTURES = MOST_SUBPAGES;
 /** The longest caption kept, in characters: a title band's width is forty. */
 const LONGEST_CAPTION = 120;
 /** A captions.tsv line: name, group, caption. */
@@ -44,7 +52,37 @@ function readSmall(path: string, encoding: "utf8" | "latin1", longest: number): 
   }
 }
 
-/** The pictures in `folder`; a picture without its files is left out, and no folder is no pictures. */
+/** The picture `name` with whichever of its levels' files the folder has, or undefined with none. */
+function readPicture(folder: string, name: string, caption: string): PictureFile | undefined {
+  const levels = LEVELS.flatMap((level) => {
+    // TTI is seven-bit text; latin1 keeps any other byte as one character,
+    // for the library's TTI reader to refuse.
+    const tti = readSmall(join(folder, `${name}_${level}.tti`), "latin1", LONGEST_PICTURE);
+    return tti === undefined ? [] : [{ level, tti }];
+  });
+  return levels.length === 0 ? undefined : { name, caption: caption.slice(0, LONGEST_CAPTION), levels };
+}
+
+/**
+ * How many of each group's pictures fit in `most`: one more for each group
+ * in turn while any has more, so a small group is shown whole and a large
+ * one takes what the others leave.
+ */
+function sharesOf(sizes: readonly number[], most: number): number[] {
+  const shares = sizes.map(() => 0);
+  let left = most;
+  while (left > 0 && shares.some((share, group) => share < (sizes[group] ?? 0))) {
+    for (const [group, size] of sizes.entries()) {
+      if (left > 0 && (shares[group] ?? 0) < size) {
+        shares[group] = (shares[group] ?? 0) + 1;
+        left -= 1;
+      }
+    }
+  }
+  return shares;
+}
+
+/** The pictures of GROUPS in `folder`; a picture without its files is left out, and no folder is no pictures. */
 export function loadPictures(folder?: string): readonly PictureFile[] {
   if (folder === undefined) {
     return [];
@@ -53,27 +91,25 @@ export function loadPictures(folder?: string): readonly PictureFile[] {
   if (captions === undefined) {
     return [];
   }
-  const pictures: PictureFile[] = [];
+  const byGroup = GROUPS.map((): PictureFile[] => []);
   for (const line of captions.split("\n")) {
-    if (pictures.length >= MOST_PICTURES) {
-      break;
-    }
     const fields = line.split("\t");
-    const [name = "", , ...caption] = fields;
-    if (fields.length < CAPTION_FIELDS || !NAME.test(name)) {
+    const [name = "", group = "", ...caption] = fields;
+    const found = byGroup[GROUPS.findIndex((each) => each === group)];
+    // No group can be shown with more than MOST_PICTURES, so no more are read.
+    if (fields.length < CAPTION_FIELDS || !NAME.test(name) || found === undefined || found.length >= MOST_PICTURES) {
       continue;
     }
-    const levels = LEVELS.flatMap((level) => {
-      // TTI is seven-bit text; latin1 keeps any other byte as one character,
-      // for the library's TTI reader to refuse.
-      const tti = readSmall(join(folder, `${name}_${level}.tti`), "latin1", LONGEST_PICTURE);
-      return tti === undefined ? [] : [{ level, tti }];
-    });
-    if (levels.length > 0) {
-      pictures.push({ name, caption: caption.join(" ").trim().slice(0, LONGEST_CAPTION), levels });
+    const picture = readPicture(folder, name, caption.join(" ").trim());
+    if (picture !== undefined) {
+      found.push(picture);
     }
   }
-  return pictures;
+  const shares = sharesOf(
+    byGroup.map((pictures) => pictures.length),
+    MOST_PICTURES,
+  );
+  return byGroup.flatMap((pictures, group) => pictures.slice(0, shares[group]));
 }
 
 /** The picture's TTI at `level`, or at the first level it has. */
