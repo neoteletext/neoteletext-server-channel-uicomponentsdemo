@@ -26,8 +26,9 @@ ffmpeg with libopus on the `PATH`, which encodes its sounds as Opus.
 FOLDER holds converted pictures: `captions.tsv` (name, group, caption, a
 tab between each) and each picture's `NAME_l15.tti`, `NAME_l25.tti` and
 `NAME_l35.tti`, as the engine's levels conversion writes them. The
-gallery shows its examples, characters and sci-fi sprites (groups `e`,
-`c` and `s`), sharing its 64 sub-pages between them. Without it the
+gallery shows every one of its examples, characters and sci-fi sprites
+(groups `e`, `c` and `s`), each at Level 2.5 and then at Level 1.5, a
+sub-page each: 502 sub-pages for the 251 pictures. Without it the
 picture pages say there are none. `BUILD.md` has the details and the
 checks; `DEPLOYMENT.md` is for the deploy.
 

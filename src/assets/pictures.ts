@@ -1,14 +1,14 @@
 // The converted pictures, from a folder given on the command line and read
 // once at the start: the engine's levels conversion, NAME_l15.tti,
 // NAME_l25.tti and NAME_l35.tti, with captions.tsv giving each name's group
-// (its caption is not shown). Only the groups in GROUPS are taken.
-// Everything in the folder is untrusted: names are checked, sizes and
-// counts bounded.
+// (its caption is not shown). Only the groups in GROUPS are taken, every
+// picture of each: a page holds the standard's thousands of sub-pages
+// (the server's start says how many), so none is left out for room.
+// Everything in the folder is untrusted: names are checked, each file's
+// size and all the files' bytes together bounded.
 
 import { readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
-
-import { MOST_SUBPAGES } from "neoteletext-server-ts-protocol";
 
 /** The levels each picture is converted at, by the names the folder gives them. */
 const LEVELS = ["l15", "l25", "l35"] as const;
@@ -30,8 +30,8 @@ export interface PictureFile {
 const LONGEST_PICTURE = 256 * 1024;
 /** A few thousand pictures' lines of a few hundred characters. */
 const LONGEST_CAPTIONS = 4 * 1024 * 1024;
-/** The most pictures kept: the gallery shows each as a sub-page of one page. */
-const MOST_PICTURES = MOST_SUBPAGES;
+/** The most bytes of pictures read in all: the channel's memory for them, room for thousands of pictures at three levels. */
+const MOST_PICTURE_BYTES = 64 * 1024 * 1024;
 /** A captions.tsv line: name, group, caption. */
 const CAPTION_FIELDS = 3;
 /** A name is a file name's stem, never a path. */
@@ -61,25 +61,6 @@ function readPicture(folder: string, name: string): PictureFile | undefined {
   return levels.length === 0 ? undefined : { name, levels };
 }
 
-/**
- * How many of each group's pictures fit in `most`: one more for each group
- * in turn while any has more, so a small group is shown whole and a large
- * one takes what the others leave.
- */
-function sharesOf(sizes: readonly number[], most: number): number[] {
-  const shares = sizes.map(() => 0);
-  let left = most;
-  while (left > 0 && shares.some((share, group) => share < (sizes[group] ?? 0))) {
-    for (const [group, size] of sizes.entries()) {
-      if (left > 0 && (shares[group] ?? 0) < size) {
-        shares[group] = (shares[group] ?? 0) + 1;
-        left -= 1;
-      }
-    }
-  }
-  return shares;
-}
-
 /** The pictures of GROUPS in `folder`; a picture without its files is left out, and no folder is no pictures. */
 export function loadPictures(folder?: string): readonly PictureFile[] {
   if (folder === undefined) {
@@ -90,24 +71,25 @@ export function loadPictures(folder?: string): readonly PictureFile[] {
     return [];
   }
   const byGroup = GROUPS.map((): PictureFile[] => []);
+  let bytes = 0;
   for (const line of captions.split("\n")) {
     const fields = line.split("\t");
     const [name = "", group = ""] = fields;
     const found = byGroup[GROUPS.findIndex((each) => each === group)];
-    // No group can be shown with more than MOST_PICTURES, so no more are read.
-    if (fields.length < CAPTION_FIELDS || !NAME.test(name) || found === undefined || found.length >= MOST_PICTURES) {
+    if (fields.length < CAPTION_FIELDS || !NAME.test(name) || found === undefined) {
       continue;
     }
     const picture = readPicture(folder, name);
-    if (picture !== undefined) {
-      found.push(picture);
+    if (picture === undefined) {
+      continue;
     }
+    bytes += picture.levels.reduce((sum, { tti }) => sum + tti.length, 0);
+    if (bytes > MOST_PICTURE_BYTES) {
+      break;
+    }
+    found.push(picture);
   }
-  const shares = sharesOf(
-    byGroup.map((pictures) => pictures.length),
-    MOST_PICTURES,
-  );
-  return byGroup.flatMap((pictures, group) => pictures.slice(0, shares[group]));
+  return byGroup.flat();
 }
 
 /** The picture's TTI at `level`, or at the first level it has. */

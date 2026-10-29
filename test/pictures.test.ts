@@ -8,7 +8,6 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
-import { MOST_SUBPAGES } from "neoteletext-server-ts-protocol";
 import { shows, text } from "neoteletext-server-ts-protocol/testing";
 import { loadPictures } from "../src/assets/pictures.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
@@ -19,6 +18,8 @@ const VIEWER = 1;
 const BAND_ROWS = [1, 2];
 /** Row 0 of a converted picture: its columns 8 to 39 are the picture's own (the server's requirement 11.1). */
 const PICTURE_ROW_0 = "OL,0,        The top row of the picture";
+/** More characters than the 64 sub-pages the gallery once held, with room left in the server's maximum. */
+const MANY = 300;
 
 /** A page of TTI to stand for a converted picture: the channel's own text styles page, as it publishes it, with a row 0 of its own. */
 function someTti(): string {
@@ -39,6 +40,24 @@ function withFolder(files: Readonly<Record<string, string>>, use: (folder: strin
     rmSync(folder, { recursive: true, force: true });
   }
 }
+
+test("each picture is shown at Level 2.5 and then Level 1.5, a sub-page each", () => {
+  const tti = someTti();
+  const atLevel15 = tti.replace("The top row of the picture", "The top row at Level 1.5 ");
+  withFolder(
+    { "captions.tsv": "e01\te\tA sink\ne02\te\tOnly 2.5\n", "e01_l25.tti": tti, "e01_l15.tti": atLevel15, "e01_l35.tti": tti, "e02_l25.tti": tti },
+    (folder) => {
+      const harness = channel(loadPictures(folder));
+      harness.join(VIEWER, PAGES.gallery);
+      const shown = harness.sharedPages(PAGES.gallery).map((subPage) => text(subPage.rows, 0));
+      assert.equal(shown.length, 3, "e01 at two levels, e02 at the one it has; never Level 3.5");
+      assert.match(shown[0] ?? "", /The top row of the picture/u);
+      assert.match(shown[1] ?? "", /The top row at Level 1\.5/u);
+      assert.match(shown[2] ?? "", /The top row of the picture/u);
+      assert.deepEqual(harness.errors, []);
+    },
+  );
+});
 
 test("the pictures are read by their captions and shown whole, row 0 too, with no title band, and a name that is a path is refused", () => {
   const tti = someTti();
@@ -67,12 +86,12 @@ test("the pictures are read by their captions and shown whole, row 0 too, with n
   );
 });
 
-test("only the examples, characters and sci-fi sprites are taken, in that order, and every group fits the gallery", () => {
+test("only the examples, characters and sci-fi sprites are taken, in that order, every one of them", () => {
   const tti = someTti();
   const lines = [
     ["a001", "a", "Art"],
     ["s01", "s", "Sprite 1"],
-    ...Array.from({ length: MOST_SUBPAGES }, (_, index) => [`c${index}`, "c", `Character ${index}`]),
+    ...Array.from({ length: MANY }, (_, index) => [`c${index}`, "c", `Character ${index}`]),
     ["s02", "s", "Sprite 2"],
     ["e01", "e", "Example 1"],
     ["p001", "p", "People"],
@@ -82,9 +101,15 @@ test("only the examples, characters and sci-fi sprites are taken, in that order,
     files[`${name}_l25.tti`] = tti;
   }
   withFolder(files, (folder) => {
-    const names = loadPictures(folder).map((picture) => picture.name);
-    const characters = MOST_SUBPAGES - ["e01", "s01", "s02"].length;
-    assert.deepEqual(names, ["e01", ...Array.from({ length: characters }, (_, index) => `c${index}`), "s01", "s02"]);
+    const pictures = loadPictures(folder);
+    assert.deepEqual(
+      pictures.map((picture) => picture.name),
+      ["e01", ...Array.from({ length: MANY }, (_, index) => `c${index}`), "s01", "s02"],
+    );
+    const harness = channel(pictures);
+    harness.join(VIEWER, PAGES.gallery);
+    assert.equal(harness.sharedPages(PAGES.gallery).length, MANY + 3, "every picture is a sub-page of the gallery");
+    assert.deepEqual(harness.errors, []);
   });
 });
 
