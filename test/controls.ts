@@ -5,20 +5,16 @@ import assert from "node:assert/strict";
 
 import { type Harness, text } from "neoteletext-server-ts-protocol/testing";
 import { readControls } from "neoteletext-server-ts-ui-components";
+import { keptTti } from "./kept-tti.ts";
 
 interface Place {
   readonly row: number;
   readonly column: number;
 }
 
-/** The newest TTI of `page` that `session` sees: their own copy while they have one, else the channel's. */
+/** The TTI of `page` that `session` sees: their own copy while they have one, else the channel's (kept-tti.ts). */
 function ttiSeen(harness: Harness, session: number, page: number): string {
-  const ofPage = harness.sent.filter((message) => Number.parseInt(String(message["page"]), 16) === page);
-  const own = ofPage.findLast(
-    (message) => (message["type"] === "publish" && message["owner"] === session) || (message["type"] === "release" && message["session"] === session),
-  );
-  const seen = own?.["type"] === "publish" ? own : ofPage.findLast((message) => message["type"] === "publish" && message["owner"] === "channel");
-  return String(seen?.["tti"]);
+  return keptTti(harness, page, session) ?? "";
 }
 
 /** The control on the row of `page` that shows `words`. */

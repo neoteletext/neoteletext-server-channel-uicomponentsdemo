@@ -2,6 +2,7 @@
 // stems are taken, and the gallery and the picture page show what was
 // found, or say there is nothing.
 
+import { keptTti } from "./kept-tti.ts";
 import assert from "node:assert/strict";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -24,8 +25,8 @@ const MANY = 300;
 /** A page of TTI to stand for a converted picture: the channel's own text styles page, as it publishes it, with a row 0 of its own. */
 function someTti(): string {
   const harness = channel();
-  const published = harness.sent.find((message) => message["type"] === "publish" && Number.parseInt(String(message["page"]), 16) === PAGES.textStyles);
-  return `${PICTURE_ROW_0}\n${String(published?.["tti"]).replace(/^OL,0,.*\n/mu, "")}`;
+  const published = keptTti(harness, PAGES.textStyles, VIEWER) ?? "";
+  return `${PICTURE_ROW_0}\n${published.replace(/^PN,.*\n/mu, "").replace(/^OL,0,.*\n/mu, "")}`;
 }
 
 /** A pictures folder holding `files`, removed after `use`. */
