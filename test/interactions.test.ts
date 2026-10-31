@@ -19,7 +19,7 @@ test("the catalogue goes to the page of the component chosen", () => {
   harness.join(VIEWER, PAGES.components);
   harness.press(VIEWER, Key.Down);
   harness.press(VIEWER, Key.Enter);
-  assert.deepEqual(harness.gotos(VIEWER), [CATALOGUE[1]?.page]);
+  assert.deepEqual(harness.redirects(VIEWER), [CATALOGUE[1]?.page]);
   assert.deepEqual(harness.errors, []);
 });
 

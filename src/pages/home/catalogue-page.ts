@@ -24,7 +24,7 @@ export class CataloguePage extends Component {
         onChoose: (index, session) => {
           const chosen = CATALOGUE[index];
           if (chosen !== undefined) {
-            this.services.goto(session, chosen.page);
+            this.services.redirect(session, chosen.page);
           }
         },
       }),
