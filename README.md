@@ -48,7 +48,7 @@ demo is one walk on the green key.
 | Input     | 600 fields, 601 choices, 602 numbers, 603 a form, 604 dialogs, 605 a wizard, 606 feedback |
 | Play      | 700 quiz, 701 poll, 702 roulette, 703 snake, 704 sound board          |
 | Documents | 800 a document, 801 a day a sub-page, 810 to 814 the sample stories   |
-| Languages | 820 and 893 the index, 821 to 892 a page in each language the engine has a set for, ready-made TTI in `src/pages/languages/tti`, which `node src/pages/languages/make-language-pages.ts --neottx PATH` makes from `language-table.ts` |
+| Languages | 820 and 893 the index, 821 to 892 a page in each language the engine has a set for, showing the Universal Declaration of Human Rights (`CREDITS.md`), ready-made TTI in `src/pages/languages/tti`, which `node src/pages/languages/make-language-pages.ts --neottx PATH` makes from `language-table.ts` |
 
 - `src/main.ts`: the program, which reads its options and the pictures
   and serves the pages.
