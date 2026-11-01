@@ -2,7 +2,7 @@
 // set for. The library's components write English alone: its text folds to
 // that set, and a page with controls carries an English designation. So
 // each language page is ready-made TTI in one RawSubPage, the library's own
-// way of taking a page whole, with a window of every character of its sets
+// way of taking a page whole, with everything under its heading in a window
 // (language-page.ts), and only the index is built of components.
 
 import { readFileSync, statSync } from "node:fs";
