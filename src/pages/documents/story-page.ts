@@ -1,4 +1,4 @@
-// Pages 810 on, a story each: an article over its sub-pages, with where
+// Pages 210 on, a story each: an article over its sub-pages, with where
 // else on the channel it is.
 
 import { type Article, type Child, Component, h, StoryPages } from "neoteletext-server-ts-ui-components";

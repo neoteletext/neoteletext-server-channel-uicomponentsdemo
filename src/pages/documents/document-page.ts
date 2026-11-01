@@ -1,4 +1,4 @@
-// Page 800, a document: every article's text, flowed over as many
+// Page 205, a document: every article's text, flowed over as many
 // sub-pages as it takes.
 
 import { Colour } from "neoteletext-server-ts-protocol";

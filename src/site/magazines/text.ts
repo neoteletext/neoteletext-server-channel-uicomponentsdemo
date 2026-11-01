@@ -1,4 +1,4 @@
-// Magazine 2, text and layout.
+// Magazine 2, text and layout, then its documents (documents.ts).
 
 import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { LayoutPage } from "../../pages/text/layout-page.ts";
@@ -8,6 +8,7 @@ import { RichTextPage } from "../../pages/text/rich-text-page.ts";
 import { StylesPage } from "../../pages/text/styles-page.ts";
 import { PAGES } from "../page-numbers.ts";
 import { OWN, spec } from "../spec.ts";
+import { documentPages } from "./documents.ts";
 
 export function textPages(): PageSpec[] {
   return [
@@ -16,5 +17,6 @@ export function textPages(): PageSpec[] {
     spec(PAGES.news, () => h(NewsPage, {})),
     spec(PAGES.layout, () => h(LayoutPage, {})),
     spec(PAGES.panels, () => h(PanelsPage, {})),
+    ...documentPages(),
   ];
 }

@@ -13,6 +13,10 @@ export const PAGES = {
   news: 0x202,
   layout: 0x203,
   panels: 0x204,
+  document: 0x205,
+  days: 0x206,
+  /** The sample articles' pages start here, one page each (content/articles.ts). */
+  firstStory: 0x210,
 
   tabs: 0x300,
   menus: 0x301,
@@ -49,14 +53,9 @@ export const PAGES = {
   snake: 0x703,
   sounds: 0x704,
 
-  document: 0x800,
-  days: 0x801,
-  /** The sample articles' pages start here, one page each (content/articles.ts). */
-  firstStory: 0x810,
-
-  /** The languages' index, then a page each: 821, 822, ... (languages/language-files.ts). The same numbers as the demo site. */
-  languages: 0x820,
-  firstLanguage: 0x821,
-  /** The index's second page. A page and not a sub-page, since a click is only ever found on a page's first sub-page. */
-  moreLanguages: 0x893,
+  /** The languages' index, on magazine 8's first page; its second page: a page and not a sub-page, since a click is only ever found on a page's first sub-page. */
+  languages: 0x800,
+  moreLanguages: 0x801,
+  /** Then a page each, in alphabetical order: 802, 803, ... (languages/language-files.ts). */
+  firstLanguage: 0x802,
 } as const;

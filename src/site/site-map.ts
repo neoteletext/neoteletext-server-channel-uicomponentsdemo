@@ -41,6 +41,9 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.news, title: "Headlines and news", short: "News" },
       { page: PAGES.layout, title: "Layout", short: "Layout" },
       { page: PAGES.panels, title: "Panels and rules", short: "Panels" },
+      { page: PAGES.document, title: "A document", short: "Document" },
+      { page: PAGES.days, title: "A day a sub-page", short: "Days" },
+      ...ARTICLES.map((article, place) => ({ page: article.page, title: article.title, short: `Story ${place + 1}` })),
     ],
   },
   {
@@ -101,15 +104,6 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.roulette, title: "Article roulette", short: "Roulette" },
       { page: PAGES.snake, title: "Snake", short: "Snake" },
       { page: PAGES.sounds, title: "Sound board", short: "Sounds" },
-    ],
-  },
-  {
-    name: "Documents",
-    look: LOOKS.documents,
-    pages: [
-      { page: PAGES.document, title: "A document", short: "Document" },
-      { page: PAGES.days, title: "A day a sub-page", short: "Days" },
-      ...ARTICLES.map((article, place) => ({ page: article.page, title: article.title, short: `Story ${place + 1}` })),
     ],
   },
   {

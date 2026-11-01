@@ -1,4 +1,4 @@
-// Page 801, a day a sub-page: the articles grouped by the day they were
+// Page 206, a day a sub-page: the articles grouped by the day they were
 // written, newest first.
 
 import { type Child, Component, DATE_FORMATS, type Day, DayPages, formatDate, h } from "neoteletext-server-ts-ui-components";
