@@ -1,15 +1,17 @@
 // The languages: an index, then a page in every language the engine has a
 // set for. The library's components write English alone: its text folds to
 // that set, and a page with controls carries an English designation. So
-// each language page is one RawSubPage of ready-made TTI, the library's own
-// way of taking a page whole, and only the index is built of components.
+// each language page is ready-made TTI in one RawSubPage, the library's own
+// way of taking a page whole, with a window of every character of its sets
+// (language-page.ts), and only the index is built of components.
 
 import { readFileSync, statSync } from "node:fs";
 
 import type { FastextLinks } from "neoteletext-server-ts-protocol";
-import { h, type PageSpec, RawSubPage } from "neoteletext-server-ts-ui-components";
+import { h, type PageSpec } from "neoteletext-server-ts-ui-components";
 import { languageFile, languagePage, NAMES_AN_INDEX } from "../../pages/languages/language-files.ts";
 import { LanguageIndexPage } from "../../pages/languages/language-index-page.ts";
+import { LanguagePage } from "../../pages/languages/language-page.ts";
 import { LANGUAGES } from "../../pages/languages/language-table.ts";
 import { PAGES } from "../page-numbers.ts";
 import { spec } from "../spec.ts";
@@ -37,9 +39,9 @@ export function languagePages(): PageSpec[] {
   return [
     spec(PAGES.languages, () => h(LanguageIndexPage, { page: PAGES.languages, from: 0 })),
     spec(PAGES.moreLanguages, () => h(LanguageIndexPage, { page: PAGES.moreLanguages, from: NAMES_AN_INDEX })),
-    ...LANGUAGES.map((_, place) => {
+    ...LANGUAGES.map((language, place) => {
       const tti = readPage(place);
-      return spec(languagePage(place), () => h(RawSubPage, { tti, fastext: linksOf(place), index: PAGES.index }));
+      return spec(languagePage(place), () => h(LanguagePage, { tti, set: language.set, fastext: linksOf(place), index: PAGES.index }));
     }),
   ];
 }

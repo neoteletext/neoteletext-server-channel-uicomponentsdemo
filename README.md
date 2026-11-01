@@ -38,17 +38,17 @@ The index is page 100. On every page green goes on to the next page and
 red back, yellow to the next magazine and cyan to the index, so the whole
 demo is one walk on the green key.
 
-| Magazine  | Pages                                                                 |
-| --------- | --------------------------------------------------------------------- |
-| Home      | 100 index, 101 components A to Z, 102 how it works, 103 a greeting    |
-| Text      | 200 styles, 201 rich text and badges, 202 news, 203 layout, 204 panels |
-| Lists     | 300 tabs, 301 menus, 302 tree, 303 sections, 304 choosing, 305 tables, 306 logs |
-| Figures   | 400 bars, 401 lines, 402 heat map, 403 clock, 404 countdown, 405 calendar |
-| Graphics  | 500 mosaics and icons, 501 gallery, 502 a picture, 503 paint, 504 animation |
-| Input     | 600 fields, 601 choices, 602 numbers, 603 a form, 604 dialogs, 605 a wizard, 606 feedback |
-| Play      | 700 quiz, 701 poll, 702 roulette, 703 snake, 704 sound board          |
-| Documents | 800 a document, 801 a day a sub-page, 810 to 814 the sample stories   |
-| Languages | 820 and 893 the index, 821 to 892 a page in each language the engine has a set for, showing the Universal Declaration of Human Rights (`CREDITS.md`), ready-made TTI in `src/pages/languages/tti`, which `node src/pages/languages/make-language-pages.ts --neottx PATH` makes from `language-table.ts` |
+| Magazine  | Pages                                                                                                                                                                                                                                                                                                                                                                             |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Home      | 100 index, 101 components A to Z, 102 how it works, 103 a greeting                                                                                                                                                                                                                                                                                                                |
+| Text      | 200 styles, 201 rich text and badges, 202 news, 203 layout, 204 panels                                                                                                                                                                                                                                                                                                            |
+| Lists     | 300 tabs, 301 menus, 302 tree, 303 sections, 304 choosing, 305 tables, 306 logs                                                                                                                                                                                                                                                                                                   |
+| Figures   | 400 bars, 401 lines, 402 heat map, 403 clock, 404 countdown, 405 calendar                                                                                                                                                                                                                                                                                                         |
+| Graphics  | 500 mosaics and icons, 501 gallery, 502 a picture, 503 paint, 504 animation                                                                                                                                                                                                                                                                                                       |
+| Input     | 600 fields, 601 choices, 602 numbers, 603 a form, 604 dialogs, 605 a wizard, 606 feedback                                                                                                                                                                                                                                                                                         |
+| Play      | 700 quiz, 701 poll, 702 roulette, 703 snake, 704 sound board                                                                                                                                                                                                                                                                                                                      |
+| Documents | 800 a document, 801 a day a sub-page, 810 to 814 the sample stories                                                                                                                                                                                                                                                                                                               |
+| Languages | 820 and 893 the index, 821 to 892 a page in each language the engine has a set for, in alphabetical order, showing the Universal Declaration of Human Rights and a window of every character of the page's sets (`CREDITS.md`), ready-made TTI in `src/pages/languages/tti`, which `node src/pages/languages/make-language-pages.ts --neottx PATH` makes from `language-table.ts` |
 
 - `src/main.ts`: the program, which reads its options and the pictures
   and serves the pages.
