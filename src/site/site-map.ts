@@ -117,6 +117,7 @@ export const MAGAZINES: readonly Magazine[] = [
     look: LOOKS.languages,
     pages: [
       { page: PAGES.languages, title: "Languages", short: "Languages" },
+      { page: PAGES.moreLanguages, title: "More languages", short: "More" },
       ...LANGUAGES.map((language, place) => ({ page: languagePage(place), title: language.name, short: language.name })),
     ],
   },

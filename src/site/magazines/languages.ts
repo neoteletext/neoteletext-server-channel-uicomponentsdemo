@@ -8,7 +8,7 @@ import { readFileSync, statSync } from "node:fs";
 
 import type { FastextLinks } from "neoteletext-server-ts-protocol";
 import { h, type PageSpec, RawSubPage } from "neoteletext-server-ts-ui-components";
-import { languageFile, languagePage } from "../../pages/languages/language-files.ts";
+import { languageFile, languagePage, NAMES_AN_INDEX } from "../../pages/languages/language-files.ts";
 import { LanguageIndexPage } from "../../pages/languages/language-index-page.ts";
 import { LANGUAGES } from "../../pages/languages/language-table.ts";
 import { PAGES } from "../page-numbers.ts";
@@ -35,7 +35,8 @@ function readPage(place: number): string {
 
 export function languagePages(): PageSpec[] {
   return [
-    spec(PAGES.languages, () => h(LanguageIndexPage, {})),
+    spec(PAGES.languages, () => h(LanguageIndexPage, { page: PAGES.languages, from: 0 })),
+    spec(PAGES.moreLanguages, () => h(LanguageIndexPage, { page: PAGES.moreLanguages, from: NAMES_AN_INDEX })),
     ...LANGUAGES.map((_, place) => {
       const tti = readPage(place);
       return spec(languagePage(place), () => h(RawSubPage, { tti, fastext: linksOf(place), index: PAGES.index }));
