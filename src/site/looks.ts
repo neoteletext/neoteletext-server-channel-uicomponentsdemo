@@ -17,4 +17,5 @@ export const LOOKS = {
   input: { background: Colour.Blue, foreground: Colour.White },
   play: { background: Colour.White, foreground: Colour.Blue },
   documents: { background: Colour.Red, foreground: Colour.White },
+  languages: { background: Colour.Green, foreground: Colour.Blue },
 } as const satisfies Record<string, Look>;

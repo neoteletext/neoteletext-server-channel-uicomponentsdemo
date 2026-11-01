@@ -3,6 +3,8 @@
 // it, so a page is named once.
 
 import { ARTICLES } from "../content/articles.ts";
+import { languagePage } from "../pages/languages/language-files.ts";
+import { LANGUAGES } from "../pages/languages/language-table.ts";
 import { type Look, LOOKS } from "./looks.ts";
 import { PAGES } from "./page-numbers.ts";
 
@@ -108,6 +110,14 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.document, title: "A document", short: "Document" },
       { page: PAGES.days, title: "A day a sub-page", short: "Days" },
       ...ARTICLES.map((article, place) => ({ page: article.page, title: article.title, short: `Story ${place + 1}` })),
+    ],
+  },
+  {
+    name: "Languages",
+    look: LOOKS.languages,
+    pages: [
+      { page: PAGES.languages, title: "Languages", short: "Languages" },
+      ...LANGUAGES.map((language, place) => ({ page: languagePage(place), title: language.name, short: language.name })),
     ],
   },
 ];

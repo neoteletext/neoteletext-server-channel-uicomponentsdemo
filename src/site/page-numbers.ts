@@ -53,4 +53,8 @@ export const PAGES = {
   days: 0x801,
   /** The sample articles' pages start here, one page each (content/articles.ts). */
   firstStory: 0x810,
+
+  /** The languages' index, then a page each: 821, 822, ... (languages/language-files.ts). The same numbers as the demo site. */
+  languages: 0x820,
+  firstLanguage: 0x821,
 } as const;
