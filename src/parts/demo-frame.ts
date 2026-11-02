@@ -12,11 +12,13 @@ export interface DemoFrameProps {
   readonly hint?: string;
   /** No title band, for a page with its own heading. */
   readonly bare?: boolean;
+  /** The colour of the screen around the page, a Colour Map entry; the decoder's default when absent. */
+  readonly screenColour?: number;
 }
 
 export class DemoFrame extends Component<DemoFrameProps> {
   override render(): Child {
-    const { page, hint, bare } = this.props;
+    const { page, hint, bare, screenColour } = this.props;
     const { look } = magazineOf(page);
     return h(
       Frame,
@@ -28,6 +30,7 @@ export class DemoFrame extends Component<DemoFrameProps> {
         index: PAGES.index,
         ...(hint === undefined ? {} : { hint }),
         ...(bare === undefined ? {} : { bare }),
+        ...(screenColour === undefined ? {} : { screenColour }),
       },
       ...(this.props.children ?? []),
     );

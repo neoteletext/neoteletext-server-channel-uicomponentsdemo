@@ -80,6 +80,7 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.picture, title: "A picture in a box", short: "Picture" },
       { page: PAGES.paint, title: "Paint", short: "Paint" },
       { page: PAGES.animation, title: "Animation", short: "Animation" },
+      { page: PAGES.screenColour, title: "Screen colour", short: "Screen" },
     ],
   },
   {

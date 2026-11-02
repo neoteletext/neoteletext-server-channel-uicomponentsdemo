@@ -38,6 +38,7 @@ export const PAGES = {
   picture: 0x502,
   paint: 0x503,
   animation: 0x504,
+  screenColour: 0x505,
 
   fields: 0x600,
   choices: 0x601,
