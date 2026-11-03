@@ -6,10 +6,9 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { Colour, Key } from "neoteletext-server-ts-protocol";
-import { type Harness, shows } from "neoteletext-server-ts-protocol/testing";
+import { type Harness, keptTti, shows } from "neoteletext-server-ts-protocol/testing";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel } from "./channel.ts";
-import { keptTti } from "./kept-tti.ts";
 
 const VIEWER = 1;
 const OTHER = 2;

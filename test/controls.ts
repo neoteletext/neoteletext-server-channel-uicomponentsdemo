@@ -3,16 +3,15 @@
 
 import assert from "node:assert/strict";
 
-import { type Harness, text } from "neoteletext-server-ts-protocol/testing";
+import { type Harness, keptTti, text } from "neoteletext-server-ts-protocol/testing";
 import { readControls } from "neoteletext-server-ts-ui-components";
-import { keptTti } from "./kept-tti.ts";
 
 interface Place {
   readonly row: number;
   readonly column: number;
 }
 
-/** The TTI of `page` that `session` sees: their own copy while they have one, else the channel's (kept-tti.ts). */
+/** The TTI of `page` that `session` sees: their own copy while they have one, else the channel's (the kit's keptTti). */
 function ttiSeen(harness: Harness, session: number, page: number): string {
   return keptTti(harness, page, session) ?? "";
 }

@@ -2,14 +2,13 @@
 // stems are taken, and the gallery and the picture page show what was
 // found, or say there is nothing.
 
-import { keptTti } from "./kept-tti.ts";
 import assert from "node:assert/strict";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
-import { shows, text } from "neoteletext-server-ts-protocol/testing";
+import { keptTti, shows, text } from "neoteletext-server-ts-protocol/testing";
 import { loadPictures } from "../src/assets/pictures.ts";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel } from "./channel.ts";
