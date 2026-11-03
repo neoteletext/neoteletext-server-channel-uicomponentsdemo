@@ -44,8 +44,7 @@ words (titles, captions, list items, buttons, tabs, tickers) drawn as text
 of that language taken from its language page, the Universal Declaration
 of Human Rights (`src/pages/languages/sample-text.ts`, the library's
 stand-in text). Page numbers and the coloured keys' prompts stay as they
-are; 800, 801 and 899 stay English, the way to every language. Thai and
-Lao lines are two rows apart, their marks on the rows between. The
+are; 800, 801 and 899 stay English, the way to every language. The
 language and cookie files are shared word for word with the demo site;
 `test/shared-files.test.ts` fails when they differ.
 
@@ -58,7 +57,7 @@ language and cookie files are shared word for word with the demo site;
 | Graphics  | 500 mosaics and icons, 501 gallery, 502 a picture, 503 paint, 504 animation, 505 screen colour                                                                                                                                                                                                                                                                                             |
 | Input     | 600 fields, 601 choices, 602 numbers, 603 a form, 604 dialogs, 605 a wizard, 606 feedback                                                                                                                                                                                                                                                                                                  |
 | Play      | 700 quiz, 701 poll, 702 roulette, 703 snake, 704 sound board                                                                                                                                                                                                                                                                                                                               |
-| Languages | 800 and 801 the index, 802 to 877 a page in each language the engine has a set for, in alphabetical order, built of the components in its own language: its name in itself over a scrolling view of the Universal Declaration of Human Rights (`CREDITS.md`), its letters and every character of its set; 899 chooses your language for the whole channel (`?language=ru` chooses Russian) |
+| Languages | 800 and 801 the index, 802 to 874 a page in each language the engine has a set for, in alphabetical order, built of the components in its own language: its name in itself over a scrolling view of the Universal Declaration of Human Rights (`CREDITS.md`), its letters and every character of its set; 899 chooses your language for the whole channel (`?language=ru` chooses Russian) |
 
 - `src/main.ts`: the program, which reads its options and the pictures
   and serves the pages.

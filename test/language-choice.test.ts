@@ -100,8 +100,8 @@ test("an address naming no language of the server's chooses none", () => {
   assert.deepEqual(harness.redirects(1), []);
 });
 
-test("every page of the channel is published without a fault in English, Russian, Greek, Arabic, Hebrew, Thai and Japanese kana", () => {
-  for (const language of ["en", "ru", "el", "ar", "he", "th", "ja-Hrkt"]) {
+test("every page of the channel is published without a fault in English, Russian, Greek, Arabic, Hebrew, Vietnamese and Japanese kana", () => {
+  for (const language of ["en", "ru", "el", "ar", "he", "vi", "ja-Hrkt"]) {
     const harness = channel();
     const specs = pages({ pictures: [] });
     harness.join(1, PAGES.index, [{ name: "language", value: language }]);
@@ -113,27 +113,26 @@ test("every page of the channel is published without a fault in English, Russian
   }
 });
 
-test("DEC-2226: a list's items are in the viewer's language, in Thai two rows apart with their marks between", () => {
+test("DEC-2226: a list's items are in the viewer's language, a row each", () => {
   const harness = channel();
   harness.join(1, PAGES.choosing, [{ name: "language", value: "ru" }]);
-  harness.join(2, PAGES.choosing, [{ name: "language", value: "th" }]);
   assert.deepEqual(
     bodyRuns(harness, 1, PAGES.choosing).filter(([, text]) => LATIN.test(text)),
     [],
   );
-  const thai = (contentOf(harness, 2, PAGES.choosing)?.text ?? []).filter((run) => run.language === "th" && run.row < FASTEXT_ROW).map((run) => run.row);
-  assert.ok(thai.length >= 4, JSON.stringify(thai));
+  const russian = (contentOf(harness, 1, PAGES.choosing)?.text ?? []).filter((run) => run.language === "ru" && run.row < FASTEXT_ROW).map((run) => run.row);
+  assert.ok(russian.length >= 4, JSON.stringify(russian));
   assert.ok(
-    thai.some((row, place) => thai[place + 1] === row + 2),
-    "consecutive items two rows apart",
+    russian.some((row, place) => russian[place + 1] === row + 1),
+    "consecutive items a row apart",
   );
   assert.deepEqual(harness.errors, []);
 });
 
-test("DEC-2226: in Thai, the text styles are in Thai, each line with its marks on rows of its own", () => {
+test("DEC-2226: in Russian, the text styles are in Russian", () => {
   const harness = channel();
-  harness.join(1, PAGES.textStyles, [{ name: "language", value: "th" }]);
-  const thai = bodyRuns(harness, 1, PAGES.textStyles).filter(([language, text]) => language === "th" && /[\u0E00-\u0E7F]/u.test(text));
-  assert.ok(thai.length >= 6, JSON.stringify(thai));
+  harness.join(1, PAGES.textStyles, [{ name: "language", value: "ru" }]);
+  const russian = bodyRuns(harness, 1, PAGES.textStyles).filter(([language, text]) => language === "ru" && /[\u0400-\u04FF]/u.test(text));
+  assert.ok(russian.length >= 6, JSON.stringify(russian));
   assert.deepEqual(harness.errors, []);
 });

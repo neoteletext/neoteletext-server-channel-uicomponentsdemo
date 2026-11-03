@@ -68,14 +68,12 @@ export class IndexPage extends Component {
         h(At, { row: 0, column: 1 }, h(Mosaic, { bitmap: EMBLEM, foreground: Colour.Cyan })),
         h(At, { row: 0, column: HEADING_COLUMN }, h(DoubleWidth, { text: "UI DEMO", foreground: Colour.Yellow })),
         h(At, { row: 2, column: HEADING_COLUMN }, h(Paragraph, { text: "every component, working", lines: 1 })),
-        // The library's name, as written; a language whose line takes its mark rows has no room for it above the clock (marks.ts).
-        this.language.markRows > 0
-          ? null
-          : h(
-              At,
-              { row: 3, column: HEADING_COLUMN },
-              h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1, language: ENGLISH }),
-            ),
+        // The library's name, as written.
+        h(
+          At,
+          { row: 3, column: HEADING_COLUMN },
+          h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1, language: ENGLISH }),
+        ),
         h(At, { row: CLOCK_ROW, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
       ),
       h(Band, { text: "THE MAGAZINES", background: Colour.Blue }),
