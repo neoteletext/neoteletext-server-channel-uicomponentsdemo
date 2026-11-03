@@ -6,6 +6,7 @@ import { Band, type Child, Component, Gap, Grid, h, Headline, Newsflash, PageLin
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
+import { samplerFor } from "../languages/sample-text.ts";
 
 /** How long each ticker item shows. */
 const TICKER_MS = 5_000;
@@ -15,13 +16,19 @@ const LINK_ROWS = 2;
 
 export class NewsPage extends Component {
   override render(): Child {
-    const [lead, ...rest] = ARTICLES;
+    // In the viewer's language, the headlines, the newsflash and the ticker are the Declaration's sentences and title (REQ-2218 item 2).
+    const sampler = samplerFor(this.services);
+    const titles = sampler.controlList(
+      ARTICLES.map((article) => article.title),
+      (sample) => sample.sentences,
+    );
+    const [lead, ...rest] = ARTICLES.map((article, place) => ({ ...article, title: titles[place] ?? article.title }));
     return h(
       DemoFrame,
       { page: PAGES.news, hint: "Click a headline to read it" },
-      lead === undefined ? null : h(Headline, { title: lead.title, page: lead.page, foreground: Colour.Yellow, lines: 2 }),
+      lead === undefined ? null : h(Headline, { title: lead.title, page: lead.page, foreground: Colour.Yellow, lines: 2, ...sampler.control }),
       h(Gap, {}),
-      ...rest.map((article) => h(Headline, { key: article.page, title: article.title, page: article.page })),
+      ...rest.map((article) => h(Headline, { key: article.page, title: article.title, page: article.page, ...sampler.control })),
       h(Gap, {}),
       h(Band, { text: "SEE ALSO", background: Colour.Blue }),
       h(
@@ -33,8 +40,16 @@ export class NewsPage extends Component {
         h(PageLink, { page: PAGES.poll, label: "The poll" }),
       ),
       h(Gap, { rows: 0, grow: 1 }),
-      h(Newsflash, { text: "Newsflash: every component works" }),
-      h(Ticker, { items: ARTICLES.map((article) => article.summary), everyMs: TICKER_MS, background: Colour.Blue }),
+      h(Newsflash, { text: sampler.controlText("Newsflash: every component works", (sample) => sample.headline), ...sampler.control }),
+      h(Ticker, {
+        items: sampler.controlList(
+          ARTICLES.map((article) => article.summary),
+          (sample) => sample.sentences,
+        ),
+        everyMs: TICKER_MS,
+        background: Colour.Blue,
+        ...sampler.control,
+      }),
     );
   }
 }

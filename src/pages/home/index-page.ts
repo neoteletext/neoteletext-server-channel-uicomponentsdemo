@@ -24,6 +24,7 @@ import {
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
+import { samplerFor } from "../languages/sample-text.ts";
 import { MAGAZINES } from "../../site/site-map.ts";
 import { EMBLEM, EMBLEM_CELLS, EMBLEM_ROWS } from "./emblem.ts";
 
@@ -38,19 +39,28 @@ const LINK_COLUMNS = 2;
 /** How long each ticker item shows. */
 const TICKER_MS = 7_000;
 
+/** What the index links to: each magazine but its own, then the home magazine's pages, the cookies and the page that chooses a language. */
+function indexLinks(): { readonly page: number; readonly label: string }[] {
+  return [
+    ...MAGAZINES.flatMap((magazine) => {
+      const [front] = magazine.pages;
+      // The index's own magazine is linked by its other pages instead.
+      return front === undefined || front.page === PAGES.index ? [] : [{ page: front.page, label: magazine.name }];
+    }),
+    { page: PAGES.components, label: "Components A-Z" },
+    { page: PAGES.how, label: "How it works" },
+    { page: PAGES.greeting, label: "A greeting" },
+    { page: PAGES.visits, label: "Cookies" },
+    { page: PAGES.chooseLanguage, label: "Language" },
+  ];
+}
+
 export class IndexPage extends Component {
   override render(): Child {
     const [newest] = ARTICLES;
-    const links = [
-      ...MAGAZINES.flatMap((magazine) => {
-        const [front] = magazine.pages;
-        // The index's own magazine is linked by its other pages instead.
-        return front === undefined || front.page === PAGES.index ? [] : [{ page: front.page, label: magazine.name }];
-      }),
-      { page: PAGES.components, label: "Components A-Z" },
-      { page: PAGES.how, label: "How it works" },
-      { page: PAGES.greeting, label: "A greeting" },
-    ];
+    // In the viewer's language, the heading's line and the ticker are the Declaration's title and sentences (REQ-2218 item 2).
+    const sampler = samplerFor(this.services);
+    const links = indexLinks();
     return h(
       DemoFrame,
       { page: PAGES.index, bare: true, hint: "Type a page number or press a colour" },
@@ -59,7 +69,11 @@ export class IndexPage extends Component {
         { height: TOP_ROWS },
         h(At, { row: 0, column: 1 }, h(Mosaic, { bitmap: EMBLEM, foreground: Colour.Cyan })),
         h(At, { row: 0, column: HEADING_COLUMN }, h(DoubleWidth, { text: "UI DEMO", foreground: Colour.Yellow })),
-        h(At, { row: 2, column: HEADING_COLUMN }, h(Paragraph, { text: "every component, working", lines: 1 })),
+        h(
+          At,
+          { row: 2, column: HEADING_COLUMN },
+          h(Paragraph, { text: sampler.controlText("every component, working", (sample) => sample.own), lines: 1, ...sampler.control }),
+        ),
         h(At, { row: 3, column: HEADING_COLUMN }, h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1 })),
         h(At, { row: CLOCK_ROW, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
       ),
@@ -75,7 +89,14 @@ export class IndexPage extends Component {
         : [h(Band, { text: "NEWEST ARTICLE", background: Colour.Red, foreground: Colour.Yellow }), h(Headline, { title: newest.title, page: newest.page })],
       h(Gap, { rows: 0, grow: 1 }),
       newest === undefined ? null : h(Newsflash, { text: `${newest.page.toString(16)} ${newest.title}` }),
-      h(Ticker, { items: ARTICLES.map((article) => `${article.page.toString(16)} ${article.title}`), everyMs: TICKER_MS }),
+      h(Ticker, {
+        items: sampler.controlList(
+          ARTICLES.map((article) => `${article.page.toString(16)} ${article.title}`),
+          (sample) => sample.sentences,
+        ),
+        everyMs: TICKER_MS,
+        ...sampler.control,
+      }),
     );
   }
 }

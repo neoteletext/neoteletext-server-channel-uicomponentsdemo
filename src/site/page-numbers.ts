@@ -7,6 +7,12 @@ export const PAGES = {
   components: 0x101,
   how: 0x102,
   greeting: 0x103,
+  /** The cookies, a page for each thing a cookie does (pages/cookies). */
+  visits: 0x110,
+  lifetimes: 0x111,
+  minute: 0x112,
+  cookieList: 0x113,
+  attributes: 0x114,
 
   textStyles: 0x200,
   richText: 0x201,
@@ -59,4 +65,6 @@ export const PAGES = {
   moreLanguages: 0x801,
   /** Then a page each, in alphabetical order: 802, 803, ... (languages/language-files.ts). */
   firstLanguage: 0x802,
+  /** The page that chooses the viewer's language for the whole channel, after the languages' last. */
+  chooseLanguage: 0x899,
 } as const;

@@ -30,6 +30,11 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.components, title: "Components A to Z", short: "A to Z" },
       { page: PAGES.how, title: "How it works", short: "How" },
       { page: PAGES.greeting, title: "A greeting", short: "Greeting" },
+      { page: PAGES.visits, title: "Visit counter", short: "Visits" },
+      { page: PAGES.lifetimes, title: "Session or kept", short: "Lifetimes" },
+      { page: PAGES.minute, title: "Sixty seconds", short: "Minute" },
+      { page: PAGES.cookieList, title: "Your cookies", short: "Cookies" },
+      { page: PAGES.attributes, title: "Cookie attributes", short: "Attributes" },
     ],
   },
   {
@@ -114,6 +119,7 @@ export const MAGAZINES: readonly Magazine[] = [
       { page: PAGES.languages, title: "Languages", short: "Languages" },
       { page: PAGES.moreLanguages, title: "More languages", short: "More" },
       ...LANGUAGES.map((language, place) => ({ page: languagePage(place), title: language.name, short: language.name })),
+      { page: PAGES.chooseLanguage, title: "Choose a language", short: "Choose" },
     ],
   },
 ];
