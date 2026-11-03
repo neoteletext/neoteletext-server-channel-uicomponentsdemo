@@ -5,7 +5,6 @@ import { type Child, Component, Gap, h, type Line, type LogEntry, type LogLevel,
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";
-import { samplerFor } from "../languages/sample-text.ts";
 
 /** How often a line is logged. */
 const LOG_EVERY_MS = 3_000;
@@ -38,13 +37,6 @@ export class LogsPage extends Component<object, { readonly entries: readonly Log
   }
 
   override render(): Child {
-    // In the viewer's language, the text to scroll is the Declaration's words, a line each (REQ-2218 item 2); a scrolling view gives Thai and Lao their rows.
-    const sampler = samplerFor(this.services);
-    const words = sampler.list(
-      LINES.map((line) => line.text),
-      (sample) => sample.words,
-    );
-    const lines = LINES.map((line, place) => ({ foreground: line.foreground, text: words[place] ?? line.text }));
     return h(
       DemoFrame,
       { page: PAGES.logs, hint: "Up and Down scroll; Tab to the other" },
@@ -52,7 +44,7 @@ export class LogsPage extends Component<object, { readonly entries: readonly Log
       h(LogView, { entries: this.state.entries, shown: LOG_SHOWN, empty: "Nothing logged yet" }),
       h(Gap, {}),
       h(Note, { text: "Text to scroll, with its bar:", lines: 1 }),
-      h(ScrollingText, { lines, shown: TEXT_SHOWN, autoFocus: true, ...sampler.display }),
+      h(ScrollingText, { lines: LINES, shown: TEXT_SHOWN, autoFocus: true }),
     );
   }
 }

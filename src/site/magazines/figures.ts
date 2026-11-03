@@ -8,15 +8,15 @@ import { CountdownPage } from "../../pages/figures/countdown-page.ts";
 import { HeatPage } from "../../pages/figures/heat-page.ts";
 import { LinesPage } from "../../pages/figures/lines-page.ts";
 import { PAGES } from "../page-numbers.ts";
-import { spec } from "../spec.ts";
+import { OWN, spec } from "../spec.ts";
 
 export function figurePages(): PageSpec[] {
   return [
-    spec(PAGES.bars, () => h(BarsPage, {})),
+    spec(PAGES.bars, () => h(BarsPage, {}), OWN),
     spec(PAGES.lines, () => h(LinesPage, {})),
     spec(PAGES.heat, () => h(HeatPage, {})),
     spec(PAGES.clock, () => h(ClockPage, {})),
     spec(PAGES.countdown, () => h(CountdownPage, {})),
-    spec(PAGES.calendar, () => h(CalendarPage, {})),
+    spec(PAGES.calendar, () => h(CalendarPage, {}), OWN),
   ];
 }

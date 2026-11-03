@@ -9,7 +9,7 @@ import { MinuteCookie } from "../../pages/cookies/minute-cookie.ts";
 import { VisitCounter } from "../../pages/cookies/visit-counter.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../page-numbers.ts";
-import { spec } from "../spec.ts";
+import { OWN, spec } from "../spec.ts";
 
 /** Each cookie page and its body. */
 const COOKIE_PAGES: readonly (readonly [page: number, body: new (props: object) => Component])[] = [
@@ -21,5 +21,5 @@ const COOKIE_PAGES: readonly (readonly [page: number, body: new (props: object) 
 ];
 
 export function cookiePages(): PageSpec[] {
-  return COOKIE_PAGES.map(([page, body]) => spec(page, () => h(DemoFrame, { page }, h(body, {}))));
+  return COOKIE_PAGES.map(([page, body]) => spec(page, () => h(DemoFrame, { page }, h(body, {})), OWN));
 }

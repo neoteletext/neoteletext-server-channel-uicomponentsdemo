@@ -1,7 +1,7 @@
-// One site in every language (REQ-2218): the page that chooses a language
-// keeps it in the `language` cookie, every page is then drawn for the
-// viewer with its samples in that language and its title naming it, and an
-// address that names a language chooses it.
+// One site in every language (REQ-2218, DEC-2232): the page that chooses a
+// language keeps it in the `language` cookie, every page is then drawn in
+// that language, the channel's words as text of it (the library's stand-in,
+// DEC-2233), and an address that names a language chooses it.
 
 import assert from "node:assert/strict";
 import { test } from "node:test";
@@ -15,6 +15,17 @@ import { pages } from "../src/site/pages.ts";
 /** The cookies set for `connection`, in order. */
 function cookiesSet(sent: readonly Sent[], connection: number): Sent[] {
   return sent.filter((message) => message["type"] === "cookie" && message["connection"] === connection);
+}
+
+/** The Fastext row. */
+const FASTEXT_ROW = 24;
+
+/** Latin letters, which a page in a language whose sets lack them shows none of but on its Fastext row. */
+const LATIN = /[A-Za-z]/u;
+
+/** The runs of `page` as `session` sees it, each its language and text, but the Fastext row's, which stay the channel's words (DEC-1987 item 6). */
+function bodyRuns(harness: ReturnType<typeof channel>, session: number, page: number): [string, string][] {
+  return (contentOf(harness, session, page)?.text ?? []).filter((run) => run.row < FASTEXT_ROW).map((run) => [run.language ?? "", run.text]);
 }
 
 /** The runs of `page` as `session` sees it, each its language and text. */
@@ -37,12 +48,17 @@ test("the picker sets the language cookie, for the whole channel and a year, and
     ["language", "ru", "/", 365 * 24 * 60 * 60, "Lax"],
   );
   harness.open(1, PAGES.textStyles);
-  const runs = runsSeen(harness, 1, PAGES.textStyles);
+  assert.equal(contentOf(harness, 1, PAGES.textStyles)?.language, "ru");
+  const runs = bodyRuns(harness, 1, PAGES.textStyles);
   assert.ok(
-    runs.some(([language, text]) => language === "en" && text === "Text styles - Russian"),
+    runs.some(([language, text]) => language === "ru" && /[а-яА-Я]/u.test(text)),
     JSON.stringify(runs),
   );
-  assert.ok(runs.some(([language]) => language === "ru"));
+  assert.deepEqual(
+    runs.filter(([, text]) => LATIN.test(text)),
+    [],
+    "every word of the page in Russian",
+  );
   assert.deepEqual(harness.errors, []);
 });
 
@@ -50,25 +66,21 @@ test("a page is drawn in the language of the viewer's cookie, and in English wit
   const harness = channel();
   harness.join(1, PAGES.textStyles, [{ name: "language", value: "ar" }]);
   harness.join(2, PAGES.textStyles);
-  const arabic = runsSeen(harness, 1, PAGES.textStyles);
-  const english = runsSeen(harness, 2, PAGES.textStyles);
-  assert.ok(
-    arabic.some(([language, text]) => language === "ar" && text === "العربية"),
-    "the double-height line is the language's name in itself",
-  );
-  assert.ok(arabic.some(([, text]) => text === "Text styles - Arabic"));
+  assert.equal(contentOf(harness, 1, PAGES.textStyles)?.language, "ar", "the page is in the viewer's language");
+  const arabic = bodyRuns(harness, 1, PAGES.textStyles);
+  assert.ok(arabic.some(([language, text]) => language === "ar" && /[\u0600-\u06FF]/u.test(text)));
   assert.deepEqual(
-    english.filter(([language]) => language !== "en"),
+    arabic.filter(([, text]) => LATIN.test(text)),
     [],
+    "every word in Arabic",
   );
-  assert.ok(english.some(([, text]) => text === "Text styles - English"));
-  assert.equal(contentOf(harness, 1, PAGES.textStyles)?.language, "en", "the page is English, its samples in the viewer's language");
+  assert.ok(runsSeen(harness, 2, PAGES.textStyles).some(([, text]) => text === "Text styles"));
 });
 
 test("a cookie naming no language of the server's leaves the site in English", () => {
   const harness = channel();
   harness.join(1, PAGES.textStyles, [{ name: "language", value: "xx" }]);
-  assert.ok(runsSeen(harness, 1, PAGES.textStyles).some(([, text]) => text === "Text styles - English"));
+  assert.ok(runsSeen(harness, 1, PAGES.textStyles).some(([, text]) => text === "Text styles"));
 });
 
 test("REQ-2218 item 3: the picker's address with ?language=el chooses Greek and goes to the index", () => {
@@ -101,32 +113,27 @@ test("every page of the channel is published without a fault in English, Russian
   }
 });
 
-test("a list's items are the language's words, but in Thai, whose line takes three rows, a list row stays English", () => {
+test("DEC-2226: a list's items are in the viewer's language, in Thai two rows apart with their marks between", () => {
   const harness = channel();
   harness.join(1, PAGES.choosing, [{ name: "language", value: "ru" }]);
   harness.join(2, PAGES.choosing, [{ name: "language", value: "th" }]);
-  assert.ok(runsSeen(harness, 1, PAGES.choosing).some(([language, text]) => language === "ru" && text.includes("Все")));
-  const thai = runsSeen(harness, 2, PAGES.choosing);
-  assert.ok(thai.some(([, text]) => text.includes("Apples")));
   assert.deepEqual(
-    thai.filter(([language]) => language === "th"),
+    bodyRuns(harness, 1, PAGES.choosing).filter(([, text]) => LATIN.test(text)),
     [],
+  );
+  const thai = (contentOf(harness, 2, PAGES.choosing)?.text ?? []).filter((run) => run.language === "th" && run.row < FASTEXT_ROW).map((run) => run.row);
+  assert.ok(thai.length >= 4, JSON.stringify(thai));
+  assert.ok(
+    thai.some((row, place) => thai[place + 1] === row + 2),
+    "consecutive items two rows apart",
   );
   assert.deepEqual(harness.errors, []);
 });
 
-test("in Thai, the text styles that hold one row keep their English, and those that give a line three rows are in Thai", () => {
+test("DEC-2226: in Thai, the text styles are in Thai, each line with its marks on rows of its own", () => {
   const harness = channel();
   harness.join(1, PAGES.textStyles, [{ name: "language", value: "th" }]);
-  const runs = runsSeen(harness, 1, PAGES.textStyles);
-  for (const english of ["Flashing: something is new", "Concealed: the answer is 42"]) {
-    assert.ok(
-      runs.some(([, text]) => text.includes(english)),
-      english,
-    );
-  }
-  assert.ok(
-    runs.some(([language, text]) => language === "th" && text === "ภาษาไทย"),
-    "the double-height line, single height on three rows",
-  );
+  const thai = bodyRuns(harness, 1, PAGES.textStyles).filter(([language, text]) => language === "th" && /[\u0E00-\u0E7F]/u.test(text));
+  assert.ok(thai.length >= 6, JSON.stringify(thai));
+  assert.deepEqual(harness.errors, []);
 });

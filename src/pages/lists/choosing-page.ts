@@ -7,7 +7,6 @@ import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { setterOf } from "../../parts/setter.ts";
 import { PAGES } from "../../site/page-numbers.ts";
-import { samplerFor } from "../languages/sample-text.ts";
 
 const FRUIT = ["Apples", "Bananas", "Cherries", "Dates", "Elderberries", "Figs", "Grapes", "Honeydew", "Kiwis", "Lemons"];
 const TOPPINGS = ["Cream", "Custard", "Ice cream", "Honey", "Nuts"];
@@ -20,18 +19,13 @@ export class ChoosingPage extends Component<object, { readonly fruit: number | n
 
   override render(): Child {
     const { fruit, toppings } = this.state;
-    // In the viewer's language, the lists' items are words of the Declaration (REQ-2218 item 2); Thai and Lao keep the English, a list row being one row.
-    const sampler = samplerFor(this.services);
-    const fruits = sampler.controlList(FRUIT, (sample) => sample.words);
-    const toppingNames = sampler.controlList(TOPPINGS, (sample) => sample.words.slice(FRUIT.length));
-    const chosen = fruit === null ? "none" : (fruits[fruit] ?? "none");
+    const chosen = fruit === null ? "none" : (FRUIT[fruit] ?? "none");
     return h(
       DemoFrame,
       { page: PAGES.choosing, hint: "Up, Down, Enter; Tab to the next list" },
       h(Note, { text: "Choose one: it scrolls.", lines: 1 }),
       h(ChoiceList, {
-        items: fruits,
-        ...sampler.control,
+        items: FRUIT,
         shown: FRUIT_SHOWN,
         autoFocus: true,
         onChoose: (index) => {
@@ -41,17 +35,15 @@ export class ChoosingPage extends Component<object, { readonly fruit: number | n
       h(Gap, {}),
       h(Note, { text: "Choose several: Enter ticks.", lines: 1 }),
       h(ToggleList, {
-        items: toppingNames,
-        ...sampler.control,
+        items: TOPPINGS,
         height: TOPPINGS_SHOWN,
         value: toppings,
         onChange: setterOf(this, "toppings"),
       }),
       h(Gap, {}),
       h(Text, {
-        text: `${chosen} with ${toppings.length === 0 ? "nothing" : toppings.map((index) => toppingNames[index] ?? "").join(", ")}`,
+        text: `${chosen} with ${toppings.length === 0 ? "nothing" : toppings.map((index) => TOPPINGS[index] ?? "").join(", ")}`,
         foreground: Colour.Yellow,
-        ...sampler.control,
       }),
     );
   }

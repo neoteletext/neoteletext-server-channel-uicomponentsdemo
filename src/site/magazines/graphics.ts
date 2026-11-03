@@ -9,7 +9,7 @@ import { PaintPage } from "../../pages/graphics/paint-page.ts";
 import { PicturePage } from "../../pages/graphics/picture-page.ts";
 import { ScreenColourPage } from "../../pages/graphics/screen-colour-page.ts";
 import { PAGES } from "../page-numbers.ts";
-import { OWN_TYPING, spec } from "../spec.ts";
+import { OWN, OWN_TYPING, spec } from "../spec.ts";
 
 export function graphicsPages(assets: Assets): PageSpec[] {
   return [
@@ -19,6 +19,6 @@ export function graphicsPages(assets: Assets): PageSpec[] {
     // A viewer's painting waits for them while they look at other pages.
     spec(PAGES.paint, () => h(PaintPage, {}), { ...OWN_TYPING, keepWhileAway: true }),
     spec(PAGES.animation, () => h(AnimationPage, {})),
-    spec(PAGES.screenColour, () => h(ScreenColourPage, {})),
+    spec(PAGES.screenColour, () => h(ScreenColourPage, {}), OWN),
   ];
 }

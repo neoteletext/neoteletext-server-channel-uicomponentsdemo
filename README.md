@@ -39,11 +39,15 @@ red back, yellow to the next magazine and cyan to the index, so the whole
 demo is one walk on the green key.
 
 One copy of the channel serves every language: 899 keeps your choice in
-the `language` cookie, and every page then names your language in its
-title and shows its samples (a list's items, a heading, a ticker, a
-paragraph) in it, taken from the language pages' own text
-(`src/pages/languages/sample-text.ts`). Where a line of the language takes
-three rows (Thai, Lao), a control's one row keeps the English.
+the `language` cookie, and every page is then drawn in your language, its
+words (titles, captions, list items, buttons, tabs, tickers) drawn as text
+of that language taken from its language page, the Universal Declaration
+of Human Rights (`src/pages/languages/sample-text.ts`, the library's
+stand-in text). Page numbers and the coloured keys' prompts stay as they
+are; 800, 801 and 899 stay English, the way to every language. Thai and
+Lao lines are two rows apart, their marks on the rows between. The
+language and cookie files are shared word for word with the demo site;
+`test/shared-files.test.ts` fails when they differ.
 
 | Magazine  | Pages                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

@@ -10,6 +10,7 @@ import {
   Clock,
   Component,
   DoubleWidth,
+  ENGLISH,
   Gap,
   Grid,
   h,
@@ -24,7 +25,6 @@ import {
 import { ARTICLES } from "../../content/articles.ts";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { PAGES } from "../../site/page-numbers.ts";
-import { samplerFor } from "../languages/sample-text.ts";
 import { MAGAZINES } from "../../site/site-map.ts";
 import { EMBLEM, EMBLEM_CELLS, EMBLEM_ROWS } from "./emblem.ts";
 
@@ -58,8 +58,6 @@ function indexLinks(): { readonly page: number; readonly label: string }[] {
 export class IndexPage extends Component {
   override render(): Child {
     const [newest] = ARTICLES;
-    // In the viewer's language, the heading's line and the ticker are the Declaration's title and sentences (REQ-2218 item 2).
-    const sampler = samplerFor(this.services);
     const links = indexLinks();
     return h(
       DemoFrame,
@@ -69,12 +67,15 @@ export class IndexPage extends Component {
         { height: TOP_ROWS },
         h(At, { row: 0, column: 1 }, h(Mosaic, { bitmap: EMBLEM, foreground: Colour.Cyan })),
         h(At, { row: 0, column: HEADING_COLUMN }, h(DoubleWidth, { text: "UI DEMO", foreground: Colour.Yellow })),
-        h(
-          At,
-          { row: 2, column: HEADING_COLUMN },
-          h(Paragraph, { text: sampler.controlText("every component, working", (sample) => sample.own), lines: 1, ...sampler.control }),
-        ),
-        h(At, { row: 3, column: HEADING_COLUMN }, h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1 })),
+        h(At, { row: 2, column: HEADING_COLUMN }, h(Paragraph, { text: "every component, working", lines: 1 })),
+        // The library's name, as written; a language whose line takes its mark rows has no room for it above the clock (marks.ts).
+        this.language.markRows > 0
+          ? null
+          : h(
+              At,
+              { row: 3, column: HEADING_COLUMN },
+              h(Paragraph, { text: "neoteletext-server-ts-ui-components", foreground: Colour.Cyan, lines: 1, language: ENGLISH }),
+            ),
         h(At, { row: CLOCK_ROW, column: HEADING_COLUMN }, h(Clock, { foreground: Colour.Green, seconds: true })),
       ),
       h(Band, { text: "THE MAGAZINES", background: Colour.Blue }),
@@ -89,14 +90,7 @@ export class IndexPage extends Component {
         : [h(Band, { text: "NEWEST ARTICLE", background: Colour.Red, foreground: Colour.Yellow }), h(Headline, { title: newest.title, page: newest.page })],
       h(Gap, { rows: 0, grow: 1 }),
       newest === undefined ? null : h(Newsflash, { text: `${newest.page.toString(16)} ${newest.title}` }),
-      h(Ticker, {
-        items: sampler.controlList(
-          ARTICLES.map((article) => `${article.page.toString(16)} ${article.title}`),
-          (sample) => sample.sentences,
-        ),
-        everyMs: TICKER_MS,
-        ...sampler.control,
-      }),
+      h(Ticker, { items: ARTICLES.map((article) => `${article.page.toString(16)} ${article.title}`), everyMs: TICKER_MS }),
     );
   }
 }

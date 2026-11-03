@@ -14,6 +14,7 @@ import { parseArgs } from "node:util";
 import { runChannel } from "neoteletext-server-ts-protocol";
 import { ComponentChannel } from "neoteletext-server-ts-ui-components";
 import { loadPictures } from "./assets/pictures.ts";
+import { standInText } from "./pages/languages/sample-text.ts";
 import { pages } from "./site/pages.ts";
 
 const { values } = parseArgs({ options: { pictures: { type: "string" } }, strict: true });
@@ -21,4 +22,5 @@ const pictures = loadPictures(values.pictures);
 const specs = pages({ pictures });
 process.stderr.write(`uicomponentsdemo: ${specs.length} pages, ${pictures.length} pictures\n`);
 
-await runChannel([new ComponentChannel(specs)]);
+// Every page is drawn in each viewer's language, the channel's words as text of it (REQ-2218, DEC-2233).
+await runChannel([new ComponentChannel(specs, { standIn: standInText })]);

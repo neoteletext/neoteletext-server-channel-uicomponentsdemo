@@ -8,12 +8,12 @@ import { HowPage } from "../../pages/home/how-page.ts";
 import { IndexPage } from "../../pages/home/index-page.ts";
 import { PAGES } from "../page-numbers.ts";
 import { cookiePages } from "./cookies.ts";
-import { OWN_TYPING, spec } from "../spec.ts";
+import { OWN, OWN_TYPING, spec } from "../spec.ts";
 
 export function homePages(): PageSpec[] {
   return [
     spec(PAGES.index, () => h(IndexPage, {})),
-    spec(PAGES.components, () => h(CataloguePage, {})),
+    spec(PAGES.components, () => h(CataloguePage, {}), OWN),
     spec(PAGES.how, () => h(HowPage, {})),
     spec(PAGES.greeting, () => h(GreetingPage, {}), OWN_TYPING),
     ...cookiePages(),
