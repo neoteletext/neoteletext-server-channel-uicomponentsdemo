@@ -7,8 +7,7 @@ on the library's 2.0.0, and runs on its 4.0.0: it shows every component
 2.0.0 had, and not yet the 34 that 3.0.0 added.
 
 It is a channel program: the server starts it and they talk in lines of
-JSON on its standard input and output (teletext-server's
-`docs/applications.md`). It is built on two libraries of the server's,
+JSON on its standard input and output (DOC-1964). It is built on two libraries of the server's,
 released into `vendor/`:
 
 - **neoteletext-server-ts-protocol**, the channel protocol;

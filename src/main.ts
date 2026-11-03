@@ -1,7 +1,7 @@
 // The UI components demo, the component library's own channel: every
 // component of neoteletext-server-ts-ui-components working, a page each, in
 // eight magazines. It is its own program (teletext-server's
-// docs/applications.md), which the server starts from its channels.json
+// DOC-1964), which the server starts from its channels.json
 // and talks to over standard input and output.
 //
 //   node src/main.ts [--pictures FOLDER]
