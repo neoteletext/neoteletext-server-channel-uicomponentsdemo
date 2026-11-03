@@ -2,9 +2,13 @@
 
 The NeoTeletext component library's demo: a teletext channel whose pages
 show the components of `neoteletext-server-ts-ui-components` working, a
-page or so to each, in eight magazines. It is the kitchensink, made again
-on the library's 2.0.0, and runs on its 4.0.0: it shows every component
-2.0.0 had, and not yet the 34 that 3.0.0 added.
+page or so to each, in eight magazines. It runs on the library's 19.0.1
+and the protocol kit 11.0.0 (program protocol 10). Beside the components
+it shows the library's languages: a page in each of the 73 languages the
+engine has a set for, built of the same components in that language and
+scrolling in a scroll view; a language picker on 899 that draws the whole
+channel in the viewer's language, kept in a cookie; and five pages on
+cookies (110 to 114).
 
 It is a channel program: the server starts it and they talk in lines of
 JSON on its standard input and output (DOC-1964). It is built on two libraries of the server's,
