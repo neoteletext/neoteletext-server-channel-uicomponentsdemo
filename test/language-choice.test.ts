@@ -114,3 +114,19 @@ test("a list's items are the language's words, but in Thai, whose line takes thr
   );
   assert.deepEqual(harness.errors, []);
 });
+
+test("in Thai, the text styles that hold one row keep their English, and those that give a line three rows are in Thai", () => {
+  const harness = channel();
+  harness.join(1, PAGES.textStyles, [{ name: "language", value: "th" }]);
+  const runs = runsSeen(harness, 1, PAGES.textStyles);
+  for (const english of ["Flashing: something is new", "Concealed: the answer is 42"]) {
+    assert.ok(
+      runs.some(([, text]) => text.includes(english)),
+      english,
+    );
+  }
+  assert.ok(
+    runs.some(([language, text]) => language === "th" && text === "ภาษาไทย"),
+    "the double-height line, single height on three rows",
+  );
+});

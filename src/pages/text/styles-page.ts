@@ -36,27 +36,30 @@ export class StylesPage extends Component {
   override render(): Child {
     // In the viewer's language, each style shows a word of the Declaration, its sentences and its title (REQ-2218 item 2).
     const sampler = samplerFor(this.services);
-    const { display } = sampler;
+    // Rich text, double width, flashing, concealed text and a placeholder hold one row: Thai and Lao, whose line takes three, keep the English there.
+    const { display, control } = sampler;
     const word = (english: string, place: number): string => sampler.text(english, (sample) => sample.words[place % sample.words.length] ?? sample.own);
+    const oneRowWord = (english: string, place: number): string =>
+      sampler.controlText(english, (sample) => sample.words[place % sample.words.length] ?? sample.own);
     return h(
       DemoFrame,
       { page: PAGES.textStyles, hint: "Press Reveal to show the concealed line" },
       h(RichText, {
         runs: sampler
-          .list(
+          .controlList(
             INKS.map(([name]) => name),
             (sample) => sample.words,
           )
           .map((text, place) => ({ text: `${text} `, foreground: INKS[place]?.[1] ?? Colour.White })),
         lines: 1,
-        ...display,
+        ...control,
       }),
       h(Gap, {}),
       h(DoubleHeight, { text: sampler.text("Double height", (sample) => sample.own), foreground: Colour.Yellow, ...display }),
-      h(DoubleWidth, { text: word("Double width", 0), foreground: Colour.Cyan, ...display }),
+      h(DoubleWidth, { text: oneRowWord("Double width", 0), foreground: Colour.Cyan, ...control }),
       h(Gap, {}),
-      h(Flashing, { text: sampler.text("Flashing: something is new", (sample) => sample.headline), foreground: Colour.Red, ...display }),
-      h(Concealed, { text: sampler.text("Concealed: the answer is 42", (sample) => sample.letters.join(" ")), foreground: Colour.Green, ...display }),
+      h(Flashing, { text: sampler.controlText("Flashing: something is new", (sample) => sample.headline), foreground: Colour.Red, ...control }),
+      h(Concealed, { text: sampler.controlText("Concealed: the answer is 42", (sample) => sample.letters.join(" ")), foreground: Colour.Green, ...control }),
       h(Text, { text: word("Centred in its box", 1), foreground: Colour.Magenta, centre: true, ...display }),
       h(Gap, {}),
       h(Band, {
@@ -74,7 +77,7 @@ export class StylesPage extends Component {
         ...display,
       }),
       h(Gap, {}),
-      h(Placeholder, { text: sampler.text("A placeholder, for what is not there yet", (sample) => sample.sentences.at(-1) ?? sample.own), ...display }),
+      h(Placeholder, { text: sampler.controlText("A placeholder, for what is not there yet", (sample) => sample.sentences.at(-1) ?? sample.own), ...control }),
     );
   }
 }

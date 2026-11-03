@@ -9,9 +9,9 @@ import { Note } from "../../parts/note.ts";
 import { PAGES } from "../../site/page-numbers.ts";
 import { type Sampler, samplerFor } from "../languages/sample-text.ts";
 
-/** The rich text's runs: in the viewer's language, words of the Declaration in each style. */
+/** The rich text's runs: in the viewer's language, words of the Declaration in each style; rich text gives a line one row, so Thai and Lao keep the English. */
 function richRuns(sampler: Sampler): Run[] {
-  const [mixes = "", yellow = "", blue = "", flashing = "", hidden = "", rest = ""] = sampler.list(
+  const [mixes = "", yellow = "", blue = "", flashing = "", hidden = "", rest = ""] = sampler.controlList(
     ["Rich text mixes", "yellow", "on blue", "flashing", "hidden until Reveal", "runs in one paragraph, wrapped as words."],
     (sample) => sample.words,
   );
@@ -43,7 +43,7 @@ export class RichTextPage extends Component<object, { readonly clicked: string }
       h(RichText, {
         runs: richRuns(sampler),
         lines: 4,
-        ...sampler.display,
+        ...sampler.control,
       }),
       h(Gap, {}),
       h(Note, { text: "Badges: a flashing LIVE, and chips a click acts on.", lines: 1 }),
