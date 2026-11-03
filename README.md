@@ -24,7 +24,7 @@ It needs Node 22.18 or later, which runs the `.ts` files as they are, and
 ffmpeg with libopus on the `PATH`, which encodes its sounds as Opus.
 
     npm ci --ignore-scripts --no-audit --no-fund
-    node src/main.ts [--pictures FOLDER]
+    node src/main.ts [--pictures FOLDER] [--state FILE]
 
 FOLDER holds converted pictures: `captions.tsv` (name, group, caption, a
 tab between each) and each picture's `NAME_l15.tti`, `NAME_l25.tti` and
@@ -32,8 +32,16 @@ tab between each) and each picture's `NAME_l15.tti`, `NAME_l25.tti` and
 gallery shows every one of its examples, characters and sci-fi sprites
 (groups `e`, `c` and `s`), each at Level 2.5 and then at Level 1.5, a
 sub-page each: 502 sub-pages for the 251 pictures. Without it the
-picture pages say there are none. `BUILD.md` has the details and the
-checks; `DEPLOYMENT.md` is for the deploy.
+picture pages say there are none.
+
+FILE is the SQLite database the channel keeps what outlasts the program
+in: the poll's votes and each viewer's ballot, and what each viewer chose
+on the choosing page, which keeps its state for them. It is made, with its
+folder, when it is not there; without it, this repository's
+`tmp/state.sqlite`.
+
+`BUILD.md` has the details and the checks; `DEPLOYMENT.md` is for the
+deploy.
 
 ## What is in it
 

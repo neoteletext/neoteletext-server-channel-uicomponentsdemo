@@ -4,23 +4,35 @@
 // DOC-1964), which the server starts from its channels.json
 // and talks to over standard input and output.
 //
-//   node src/main.ts [--pictures FOLDER]
+//   node src/main.ts [--pictures FOLDER] [--state FILE]
 //
 // FOLDER holds converted pictures, captions.tsv and NAME_l15.tti, _l25 and
 // _l35; without it the picture pages say so.
+//
+// FILE is the SQLite database the channel keeps what outlasts it in
+// (REQ-1057, REQ-1058): the poll's votes, each viewer's ballot and the
+// choosing page's choices. It is made, with its folder, when it is not
+// there. Without it, tmp/state.sqlite in this repository, which no deploy
+// copies; a live channel names a file outside the folder a deploy replaces.
 
+import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
 import { runChannel } from "neoteletext-server-ts-protocol";
-import { ComponentChannel } from "neoteletext-server-ts-ui-components";
+import { ComponentChannel, SqliteStateStore } from "neoteletext-server-ts-ui-components";
 import { loadPictures } from "./assets/pictures.ts";
 import { standInText } from "./pages/languages/sample-text.ts";
 import { pages } from "./site/pages.ts";
 
-const { values } = parseArgs({ options: { pictures: { type: "string" } }, strict: true });
+/** Where the channel keeps what outlasts it when no file is named: this repository's ignored tmp/. */
+const LOCAL_STATE = fileURLToPath(new URL("../tmp/state.sqlite", import.meta.url));
+
+const { values } = parseArgs({ options: { pictures: { type: "string" }, state: { type: "string" } }, strict: true });
 const pictures = loadPictures(values.pictures);
-const specs = pages({ pictures });
-process.stderr.write(`uicomponentsdemo: ${specs.length} pages, ${pictures.length} pictures\n`);
+const statePath = values.state ?? LOCAL_STATE;
+const store = new SqliteStateStore(statePath);
+const specs = pages({ pictures }, store);
+process.stderr.write(`uicomponentsdemo: ${specs.length} pages, ${pictures.length} pictures, kept in ${statePath}\n`);
 
 // Every page is drawn in each viewer's language, the channel's words as text of it (REQ-2218, DEC-2233).
-await runChannel([new ComponentChannel(specs, { standIn: standInText })]);
+await runChannel([new ComponentChannel(specs, { standIn: standInText, state: store })]);

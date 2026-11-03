@@ -4,6 +4,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { IN_MEMORY, SqliteStateStore } from "neoteletext-server-ts-ui-components";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { pages } from "../src/site/pages.ts";
 import { promptsFor } from "../src/site/prompts.ts";
@@ -14,7 +15,7 @@ const GREEN = 1;
 
 test("the specs are the map's pages, in its order", () => {
   assert.deepEqual(
-    pages({ pictures: [] }).map((spec) => spec.page),
+    pages({ pictures: [] }, new SqliteStateStore(IN_MEMORY)).map((spec) => spec.page),
     MAGAZINES.flatMap((magazine) => magazine.pages.map((entry) => entry.page)),
   );
 });

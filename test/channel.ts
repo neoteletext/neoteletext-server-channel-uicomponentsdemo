@@ -3,7 +3,7 @@
 
 import type { SubPageContent } from "neoteletext-server-ts-protocol";
 import { Harness, fakeOpus } from "neoteletext-server-ts-protocol/testing";
-import { ComponentChannel } from "neoteletext-server-ts-ui-components";
+import { ComponentChannel, IN_MEMORY, SqliteStateStore } from "neoteletext-server-ts-ui-components";
 import type { PictureFile } from "../src/assets/pictures.ts";
 import { standInText } from "../src/pages/languages/sample-text.ts";
 import { pages } from "../src/site/pages.ts";
@@ -11,9 +11,9 @@ import { pages } from "../src/site/pages.ts";
 /** The channel's start, a fixed day so that dates and countdowns are the same each run. */
 export const STARTED = Date.UTC(2026, 9, 28, 12);
 
-/** The channel, its sounds encoded by the protocol's fake encoder, which runs nothing. */
-export function channel(pictures: readonly PictureFile[] = []): Harness {
-  return new Harness([new ComponentChannel(pages({ pictures }), { opus: fakeOpus(), standIn: standInText })], { epochMs: STARTED });
+/** The channel, its sounds encoded by the protocol's fake encoder, which runs nothing, keeping what lasts in `store`: a database in memory of its own when none is given. */
+export function channel(pictures: readonly PictureFile[] = [], store: SqliteStateStore = new SqliteStateStore(IN_MEMORY)): Harness {
+  return new Harness([new ComponentChannel(pages({ pictures }, store), { opus: fakeOpus(), standIn: standInText, state: store })], { epochMs: STARTED });
 }
 
 /** The latest sub-page `session` was sent of `page`: its own copy, else the channel's. */

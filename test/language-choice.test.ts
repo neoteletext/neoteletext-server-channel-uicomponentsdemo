@@ -8,6 +8,7 @@ import { test } from "node:test";
 
 import { ANY_SUB, Key } from "neoteletext-server-ts-protocol";
 import { SERVER_LANGUAGES, type Sent } from "neoteletext-server-ts-protocol/testing";
+import { IN_MEMORY, SqliteStateStore } from "neoteletext-server-ts-ui-components";
 import { PAGES } from "../src/site/page-numbers.ts";
 import { channel, contentOf } from "./channel.ts";
 import { pages } from "../src/site/pages.ts";
@@ -103,7 +104,7 @@ test("an address naming no language of the server's chooses none", () => {
 test("every page of the channel is published without a fault in English, Russian, Greek, Arabic, Hebrew, Vietnamese and Japanese kana", () => {
   for (const language of ["en", "ru", "el", "ar", "he", "vi", "ja-Hrkt"]) {
     const harness = channel();
-    const specs = pages({ pictures: [] });
+    const specs = pages({ pictures: [] }, new SqliteStateStore(IN_MEMORY));
     harness.join(1, PAGES.index, [{ name: "language", value: language }]);
     for (const spec of specs) {
       harness.open(1, spec.page);

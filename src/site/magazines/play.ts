@@ -1,7 +1,7 @@
 // Magazine 7, play: a quiz, a poll every viewer shares, roulette, snake,
 // sounds.
 
-import { h, type PageSpec, Tally } from "neoteletext-server-ts-ui-components";
+import { h, type PageSpec, type StateStore, Tally } from "neoteletext-server-ts-ui-components";
 import { PollPage } from "../../pages/play/poll-page.ts";
 import { QuizPage } from "../../pages/play/quiz-page.ts";
 import { RoulettePage } from "../../pages/play/roulette-page.ts";
@@ -12,9 +12,9 @@ import { OWN, spec } from "../spec.ts";
 
 const POLL_COLOURS = ["Red", "Green", "Yellow", "Blue", "Magenta", "Cyan"];
 
-export function playPages(): PageSpec[] {
-  // One tally for the channel: every viewer's copy of the poll counts into it.
-  const tally = new Tally("Index colour", POLL_COLOURS);
+export function playPages(store: StateStore): PageSpec[] {
+  // One tally for the channel: every viewer's copy of the poll counts into it, kept in the store so that it outlasts the program (REQ-1057).
+  const tally = new Tally("Index colour", POLL_COLOURS, store);
   return [
     spec(PAGES.quiz, () => h(QuizPage, {}), OWN),
     spec(PAGES.poll, () => h(PollPage, { tally }), OWN),

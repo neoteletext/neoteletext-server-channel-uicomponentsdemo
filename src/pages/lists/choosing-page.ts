@@ -1,8 +1,9 @@
 // Page 304, lists to choose from: one item (ChoiceList), or several
-// (ToggleList).
+// (ToggleList). What a viewer chose is kept for them (REQ-1058): it is
+// there when they come back, after the program starts again too.
 
 import { Colour } from "neoteletext-server-ts-protocol";
-import { type Child, ChoiceList, Component, Gap, h, Text, ToggleList } from "neoteletext-server-ts-ui-components";
+import { type Child, ChoiceList, Component, Gap, h, type KeptAs, Text, ToggleList } from "neoteletext-server-ts-ui-components";
 import { DemoFrame } from "../../parts/demo-frame.ts";
 import { Note } from "../../parts/note.ts";
 import { setterOf } from "../../parts/setter.ts";
@@ -16,6 +17,10 @@ const TOPPINGS_SHOWN = 5;
 
 export class ChoosingPage extends Component<object, { readonly fruit: number | null; readonly toppings: readonly number[] }> {
   override state: { readonly fruit: number | null; readonly toppings: readonly number[] } = { fruit: null, toppings: [] };
+
+  override keptAs(): KeptAs {
+    return { key: "choosing", version: 1 };
+  }
 
   override render(): Child {
     const { fruit, toppings } = this.state;
