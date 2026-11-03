@@ -22,26 +22,45 @@ It refuses a tree with changes that are not committed, and a HEAD that is
 not the pushed upstream: what goes live is a commit that passed the full
 gate. Then it:
 
-1. keeps the live copy as `~/uicomponentsdemo.bak-DATE` on the host
+1. keeps the channel's state, `/opt/neoteletext/state/uicomponentsdemo.sqlite`
+   (see "What it keeps"), as `~/uicomponentsdemo-state.sqlite.bak-DATE`,
+   and stops if it cannot;
+2. keeps the live copy as `~/uicomponentsdemo.bak-DATE` on the host
    (`/opt/neoteletext` is root's; the channel's user is `ubuntu`);
-2. copies the commit's files, exported with `git archive`, over the live
+3. copies the commit's files, exported with `git archive`, over the live
    copy, deleting what the commit no longer has. The tree's ignored files
    (`tmp`, `.env`) are never copied; the host's own `node_modules` is
    kept;
-3. writes the commit to `.deployed-commit` beside the code;
-4. runs `npm ci --omit=dev --ignore-scripts --no-audit --no-fund`, which
+4. writes the commit to `.deployed-commit` beside the code;
+5. runs `npm ci --omit=dev --ignore-scripts --no-audit --no-fund`, which
    installs the two libraries from `vendor/` and none of the development
    tools;
-5. stops this channel's program only. The server starts it again at once;
+6. stops this channel's program only. The server starts it again at once;
    the demo site and Hackaday keep running;
-6. waits, up to 30 s, for the new program to declare its pages, checks it
+7. waits, up to 30 s, for the new program to declare its pages, checks it
    is still running 3 s later, and prints its journal lines, among them
    how many pages and pictures it has;
-7. checks the server's readiness (`ready`), that
+8. checks the server's readiness (`ready`), that
    `https://app.neottx.com/uicomponentsdemo/contents.txt` lists the pages,
    and prints the commit now live.
 
 Any step that fails stops the deploy with `FAILED:` and the reason.
+
+## What it keeps
+
+The poll's votes, each viewer's ballot and what each viewer chose on the
+choosing page are kept in the SQLite file `--state` names, so that they
+outlast the program. The channels file names
+`/opt/neoteletext/state/uicomponentsdemo.sqlite`, outside the live copy,
+so neither this deploy nor a rollback touches it; neoteletext-app-server's
+`deploy/ionos/deploy.sh` makes the folder and writes that channels file,
+so it runs once before this script keeps the channel's state there. Until
+it has, the program keeps its state in the live copy's `tmp/`, which this
+deploy leaves alone. Before either, the
+script copies it with SQLite's `VACUUM INTO`, run by the host's Node,
+which is consistent while the program writes. To put a copy back, stop
+the channel's program, copy the backup over the file, and remove the
+file's `-wal` and `-shm` beside it.
 
 ## Roll back
 
@@ -75,7 +94,7 @@ It copies each channel's working tree as it is, committed or not, so run
 it only when every channel's tree is ready to go live. The channels file
 names this channel:
 
-    {"folder":"uicomponentsdemo","name":"NeoTeletext UI components demo","command":["node","src/main.ts","--pictures","/opt/neoteletext/pictures"],"directory":"current/neoteletext-server-channel-uicomponentsdemo"}
+    {"folder":"uicomponentsdemo","name":"NeoTeletext UI components demo","command":["node","src/main.ts","--pictures","/opt/neoteletext/pictures","--state","/opt/neoteletext/state/uicomponentsdemo.sqlite"],"directory":"current/neoteletext-server-channel-uicomponentsdemo"}
 
 The pictures are never in git. `/opt/neoteletext/pictures`, which the
 demo site reads too, is a copy of neoteletext-server-channels'

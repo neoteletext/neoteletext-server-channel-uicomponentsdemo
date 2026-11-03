@@ -22,6 +22,13 @@ readonly READY_URL="http://127.0.0.1:9464/readyz"
 # /opt/neoteletext is root's, so each live copy is kept under the channel
 # user's home before it is replaced: ~/uicomponentsdemo.bak-DATE.
 readonly BACKUP_PREFIX="$CHANNEL.bak-"
+# What the channel keeps across a restart (REQ-1057, DEC-2463): the SQLite
+# file the channels file's --state names, outside LIVE, which a deploy
+# replaces. It is copied before each deploy or rollback to
+# ~/uicomponentsdemo-state.sqlite.bak-DATE, a name the rollback's search
+# for copies of the code does not match.
+readonly STATE="/opt/neoteletext/state/$CHANNEL.sqlite"
+readonly STATE_BACKUP_PREFIX="$CHANNEL-state.sqlite.bak-"
 # The commit a deploy put live, beside the code; never in the repository.
 readonly DEPLOYED=".deployed-commit"
 # The server starts the program again at once; it declares its pages in
@@ -95,6 +102,30 @@ restart_and_check() {
     printf 'live: %s\n' "$(on_host 'cat "$1/$2" 2>/dev/null || echo "a copy no deploy recorded"' "$LIVE" "$DEPLOYED")"
 }
 
+# A consistent copy of the state file, made by SQLite's VACUUM INTO through
+# the host's Node while the program may be writing (a plain copy of a
+# database in write-ahead-log mode is not one), its path a bound parameter.
+# shellcheck disable=SC2016 # expanded on the host
+readonly BACKUP_STATE='set -euo pipefail
+state=$1 backup=$2
+[ -f "$state" ] || { echo "no state at $state yet: nothing to keep"; exit 0; }
+node --input-type=module - "$state" "$backup" <<"NODE"
+import { DatabaseSync } from "node:sqlite";
+const [state, backup] = process.argv.slice(2);
+const db = new DatabaseSync(state, { readOnly: true });
+db.prepare("VACUUM INTO ?").run(backup);
+db.close();
+NODE
+echo "$backup"'
+
+backup_state() {
+    step "the channel's state kept"
+    local backup
+    # shellcheck disable=SC2016 # expanded on the host
+    backup="$(on_host 'echo ~/"$1$(date +%Y-%m-%d-%H%M%S)"' "$STATE_BACKUP_PREFIX")"
+    on_host "$BACKUP_STATE" "$STATE" "$backup" || fail "the state in $STATE could not be copied; nothing was replaced"
+}
+
 backup_live() {
     step "the live copy kept"
     # shellcheck disable=SC2016 # expanded on the host
@@ -114,6 +145,7 @@ $(git status --porcelain)"
 
     ssh -o BatchMode=yes -o ConnectTimeout=10 "$HOST" true || fail "$HOST is unreachable"
 
+    backup_state
     backup_live
 
     step "the commit's files onto the host"
@@ -123,8 +155,10 @@ $(git status --porcelain)"
     trap 'rm -rf "$exported"' EXIT
     git archive HEAD | tar -x -C "$exported"
     printf '%s %s\n' "$(git log -1 --format='%h %s')" "deployed $(date -u +%Y-%m-%dT%H:%M:%SZ)" >"$exported/$DEPLOYED"
-    # node_modules is the host's own, installed below from the lockfile.
-    rsync -a --delete --exclude node_modules "$exported/" "$HOST:$LIVE/"
+    # node_modules is the host's own, installed below from the lockfile; tmp
+    # is the program's own, where it keeps its state when the channels file
+    # names no --state, so neither is deleted.
+    rsync -a --delete --exclude node_modules --exclude /tmp "$exported/" "$HOST:$LIVE/"
 
     step "the two libraries, from vendor/ (npm ci)"
     # No development tools and no install scripts: the program needs neither.
@@ -145,7 +179,10 @@ rollback() {
     on_host '[ -d "$1" ] && [ -f "$1/package.json" ]' "$backup" || fail "$backup on $HOST is not a copy of the channel"
     printf 'putting back %s\n' "$backup"
 
-    # The copy being replaced is kept too, so a rollback can be undone.
+    # The copy being replaced is kept too, so a rollback can be undone; the
+    # state stays as it is, and is kept first in case the code put back
+    # cannot read it.
+    backup_state
     backup_live
 
     step "the backup put back, its node_modules with it"
