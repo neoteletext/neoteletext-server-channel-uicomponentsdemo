@@ -16,7 +16,8 @@ export class CalendarPage extends Component<object, { readonly chosen: CalendarD
   override state: { readonly chosen: CalendarDate | null } = { chosen: null };
 
   override render(): Child {
-    const today = this.services.epochMs();
+    // Unmounted (the probe of the page's needs) there is no clock to ask: any day draws the same controls.
+    const today = this.mounted ? this.services.epochMs() : 0;
     const { year, month } = dateOfDay(today);
     const { chosen } = this.state;
     return h(

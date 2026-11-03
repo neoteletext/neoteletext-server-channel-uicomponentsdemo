@@ -8,7 +8,8 @@ import { PAGES } from "../../site/page-numbers.ts";
 
 export class CountdownPage extends Component {
   override render(): Child {
-    const year = new Date(this.services.epochMs()).getUTCFullYear() + 1;
+    // Unmounted (the probe of the page's needs) there is no clock to ask: any year draws the same controls.
+    const year = new Date(this.mounted ? this.services.epochMs() : 0).getUTCFullYear() + 1;
     return h(
       DemoFrame,
       { page: PAGES.countdown },
