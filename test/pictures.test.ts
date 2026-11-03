@@ -122,3 +122,46 @@ test("with no pictures folder the picture pages say so", () => {
     assert.ok(shows(harness.seen(VIEWER, page).rows, "No pictures: no --pictures folder"), page.toString(16));
   }
 });
+
+/** The sub-code of the sub-page a page message carries. */
+function subOf(message: Readonly<Record<string, unknown>> | undefined): string | undefined {
+  const page = message?.["page"];
+  return typeof page === "object" && page !== null && "sub" in page && typeof page.sub === "string" ? page.sub : undefined;
+}
+
+/** The sub-codes of a sub-page list message. */
+function listed(message: Readonly<Record<string, unknown>> | undefined): string[] {
+  const list: unknown = message?.["subpages"];
+  if (!Array.isArray(list)) {
+    return [];
+  }
+  return list.flatMap((entry: unknown) => (typeof entry === "object" && entry !== null && "sub" in entry && typeof entry.sub === "string" ? [entry.sub] : []));
+}
+
+test("TODO-1487: selecting the gallery answers with its first sub-page alone and the list of all; a sub-code with that sub-page alone", () => {
+  const tti = someTti();
+  withFolder({ "captions.tsv": "e01\te\tA sink\ne02\te\tA tap\n", "e01_l25.tti": tti, "e01_l15.tti": tti, "e02_l25.tti": tti }, (folder) => {
+    const harness = channel(loadPictures(folder));
+    harness.join(VIEWER, PAGES.index);
+    let before = harness.sent.length;
+    harness.open(VIEWER, PAGES.gallery);
+    const answer = harness.sent.slice(before);
+    const pages = answer.filter((message) => message["type"] === "page");
+    const subs = listed(answer.findLast((message) => message["type"] === "subpages"));
+    assert.equal(pages.length, 1, "one sub-page answers a page selection");
+    assert.equal(subs.length, 3, "the list holds every sub-page");
+    assert.equal(subOf(pages[0]), subs[0], "the first in ascending order answers 3F7F");
+    const last = subs.at(-1);
+    assert.ok(last !== undefined);
+    before = harness.sent.length;
+    harness.open(VIEWER, PAGES.gallery, Number.parseInt(last, 16));
+    assert.deepEqual(
+      harness.sent
+        .slice(before)
+        .filter((message) => message["type"] === "page")
+        .map((message) => subOf(message)),
+      [last],
+    );
+    assert.deepEqual(harness.errors, []);
+  });
+});
