@@ -24,7 +24,7 @@ import { ComponentChannel, SqliteStateStore } from "neoteletext-server-ts-ui-com
 import { loadPictures } from "./assets/pictures.ts";
 import { standInText } from "./pages/languages/sample-text.ts";
 import { REFUSALS } from "./refusals.ts";
-import { pages } from "./site/pages.ts";
+import { channelPages } from "./site/renderers.ts";
 
 /** Where the channel keeps what outlasts it when no file is named: this repository's ignored tmp/. */
 const LOCAL_STATE = fileURLToPath(new URL("../tmp/state.sqlite", import.meta.url));
@@ -33,7 +33,7 @@ const { values } = parseArgs({ options: { pictures: { type: "string" }, state: {
 const pictures = loadPictures(values.pictures);
 const statePath = values.state ?? LOCAL_STATE;
 const store = new SqliteStateStore(statePath);
-const specs = pages({ pictures }, store);
+const specs = channelPages({ pictures }, store);
 process.stderr.write(`uicomponentsdemo: ${specs.length} pages, ${pictures.length} pictures, kept in ${statePath}\n`);
 
 // Every page is drawn in each viewer's language, the channel's words as text of it (REQ-2218, DEC-2233).

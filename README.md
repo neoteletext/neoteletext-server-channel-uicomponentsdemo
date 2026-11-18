@@ -2,8 +2,8 @@
 
 The NeoTeletext component library's demo: a teletext channel whose pages
 show the components of `neoteletext-server-ts-ui-components` working, a
-page or so to each, in eight magazines. It runs on the library's 25.0.0
-and the protocol kit 17.0.0 (program protocol 15), with the library's rule
+page or so to each, in eight magazines. It runs on the library's 26.2.0
+and the protocol kit 18.3.0 (program protocol 15), with the library's rule
 tables off (`ruleTables: "none"`), so that its entry in the server's
 channels file says `"default_rules": "send_all"` and it is sent every
 input as before (DEC-6525 item 9). Beside the components
@@ -73,11 +73,22 @@ language and viewer pages' files are shared word for word with the demo site;
 | Play      | 700 quiz, 701 poll, 702 roulette, 703 snake, 704 sound board                                                                                                                                                                                                                                                                                                                               |
 | Languages | 800 and 801 the index, 802 to 874 a page in each language the engine has a set for, in alphabetical order, built of the components in its own language: its name in itself over a scrolling view of the Universal Declaration of Human Rights (`CREDITS.md`), its letters and every character of its set; 899 chooses your language for the whole channel (`?language=ru` chooses Russian) |
 
+Every page of magazines 1 to 7 is also drawn as a ReGIS picture 40 on
+and as a NAPLPS picture 60 on, in the same magazine (renderer parity
+PAR-42): 304 is the choosing page in teletext, 344 in ReGIS and 364 in
+NAPLPS; 110 to 114 are 150 to 154 and 170 to 174, and the stories 210
+to 214 are 250 to 254 and 270 to 274. They are the same components,
+with the same keys and clicks; each copy's frame and prompts are its
+teletext page's, so green walks on into the teletext pages. The
+languages are not copied, since a picture draws text only in the
+renderers' provided sets (`src/site/renderers.ts`).
+
 - `src/main.ts`: the program, which reads its options and the pictures
   and serves the pages.
 - `src/site/`: the map (`site-map.ts`: every page's number, title and
-  magazine), the page numbers, the looks, the Fastext prompts, and the
-  page specs, a file to a magazine in `magazines/`.
+  magazine), the page numbers, the looks, the Fastext prompts, the
+  page specs, a file to a magazine in `magazines/`, and their ReGIS and
+  NAPLPS copies (`renderers.ts`).
 - `src/pages/`: the pages, a folder to each magazine, a file to a page.
 - `src/parts/`: what the pages share: the frame, its framing, notes, the
   state setter.
