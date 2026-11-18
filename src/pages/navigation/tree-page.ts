@@ -67,9 +67,9 @@ export class TreePage extends Component<object, { readonly over: string }> {
         shown: TREE_SHOWN,
         open: ["Text"],
         autoFocus: true,
-        onChoose: (node, session) => {
+        onChoose: (node, connection) => {
           if (node.page !== undefined) {
-            this.services.redirect(session, node.page);
+            this.services.redirect(connection, node.page);
           }
         },
         onHover: (node) => {

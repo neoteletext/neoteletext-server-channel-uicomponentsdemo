@@ -7,12 +7,12 @@ export const PAGES = {
   components: 0x101,
   how: 0x102,
   greeting: 0x103,
-  /** The cookies, a page for each thing a cookie does (pages/cookies). */
-  visits: 0x110,
-  lifetimes: 0x111,
-  minute: 0x112,
-  cookieList: 0x113,
-  attributes: 0x114,
+  /** What the channel knows of the viewer, a page each (pages/viewer). */
+  known: 0x110,
+  remembered: 0x111,
+  counter: 0x112,
+  forget: 0x113,
+  kept: 0x114,
 
   textStyles: 0x200,
   richText: 0x201,

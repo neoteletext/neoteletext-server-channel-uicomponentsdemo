@@ -21,9 +21,9 @@ const CHARACTER_BITS = 6;
 /** Table 28: Full Screen Colour's row mode. Annex A.5 NOTE 1: the address it recommends. */
 const FULL_SCREEN_COLOUR = { address: 41, mode: 0 };
 
-/** The first triplet of the local enhancement data `session` is sent for page 505. */
-function firstTriplet(harness: Harness, session: number): { readonly address: number; readonly mode: number; readonly data: number } {
-  const line = (keptTti(harness, PAGES.screenColour, session) ?? "").split("\n").find((each) => each.startsWith("OL,26,"));
+/** The first triplet of the local enhancement data `connection` is sent for page 505. */
+function firstTriplet(harness: Harness, connection: number): { readonly address: number; readonly mode: number; readonly data: number } {
+  const line = (keptTti(harness, PAGES.screenColour, connection) ?? "").split("\n").find((each) => each.startsWith("OL,26,"));
   assert.ok(line !== undefined, "the page has X/26");
   const [low = 0, middle = 0, high = 0] = Array.from(line.slice("OL,26,".length + 1, "OL,26,".length + 4), (each) => (each.codePointAt(0) ?? 0) & FIELD_MASK);
   const value = low | (middle << CHARACTER_BITS) | (high << (2 * CHARACTER_BITS));

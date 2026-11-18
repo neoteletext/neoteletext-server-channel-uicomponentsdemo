@@ -11,15 +11,15 @@ interface Place {
   readonly column: number;
 }
 
-/** The TTI of `page` that `session` sees: their own copy while they have one, else the channel's (the kit's keptTti). */
-function ttiSeen(harness: Harness, session: number, page: number): string {
-  return keptTti(harness, page, session) ?? "";
+/** The TTI of `page` that `connection` sees: their own copy while they have one, else the channel's (the kit's keptTti). */
+function ttiSeen(harness: Harness, connection: number, page: number): string {
+  return keptTti(harness, page, connection) ?? "";
 }
 
 /** The control on the row of `page` that shows `words`. */
-export function controlShowing(harness: Harness, session: number, page: number, words: RegExp): Place {
-  const { rows } = harness.seen(session, page);
-  const found = (readControls(ttiSeen(harness, session, page))[0] ?? []).find((control) => words.test(text(rows, control.row)));
+export function controlShowing(harness: Harness, connection: number, page: number, words: RegExp): Place {
+  const { rows } = harness.seen(connection, page);
+  const found = (readControls(ttiSeen(harness, connection, page))[0] ?? []).find((control) => words.test(text(rows, control.row)));
   assert.ok(found !== undefined, `a control showing ${String(words)}`);
   return found;
 }

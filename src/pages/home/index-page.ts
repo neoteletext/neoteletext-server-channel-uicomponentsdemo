@@ -39,7 +39,7 @@ const LINK_COLUMNS = 2;
 /** How long each ticker item shows. */
 const TICKER_MS = 7_000;
 
-/** What the index links to: each magazine but its own, then the home magazine's pages, the cookies and the page that chooses a language. */
+/** What the index links to: each magazine but its own, then the home magazine's pages, what the channel knows of the viewer and the page that chooses a language. */
 function indexLinks(): { readonly page: number; readonly label: string }[] {
   return [
     ...MAGAZINES.flatMap((magazine) => {
@@ -50,7 +50,7 @@ function indexLinks(): { readonly page: number; readonly label: string }[] {
     { page: PAGES.components, label: "Components A-Z" },
     { page: PAGES.how, label: "How it works" },
     { page: PAGES.greeting, label: "A greeting" },
-    { page: PAGES.visits, label: "Cookies" },
+    { page: PAGES.known, label: "You here" },
     { page: PAGES.chooseLanguage, label: "Language" },
   ];
 }

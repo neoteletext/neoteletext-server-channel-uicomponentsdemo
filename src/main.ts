@@ -10,10 +10,11 @@
 // _l35; without it the picture pages say so.
 //
 // FILE is the SQLite database the channel keeps what outlasts it in
-// (REQ-1057, REQ-1058): the poll's votes, each viewer's ballot and the
-// choosing page's choices. It is made, with its folder, when it is not
-// there. Without it, tmp/state.sqlite in this repository, which no deploy
-// copies; a live channel names a file outside the folder a deploy replaces.
+// (REQ-1057, REQ-1058): the poll's votes, and each viewer's ballot, the
+// choosing page's choices, visit count and language, under the viewer's
+// handle. It is made, with its folder, when it is not there. Without it,
+// tmp/state.sqlite in this repository, which no deploy copies; a live
+// channel names a file outside the folder a deploy replaces.
 
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
@@ -22,6 +23,7 @@ import { runChannel } from "neoteletext-server-ts-protocol";
 import { ComponentChannel, SqliteStateStore } from "neoteletext-server-ts-ui-components";
 import { loadPictures } from "./assets/pictures.ts";
 import { standInText } from "./pages/languages/sample-text.ts";
+import { REFUSALS } from "./refusals.ts";
 import { pages } from "./site/pages.ts";
 
 /** Where the channel keeps what outlasts it when no file is named: this repository's ignored tmp/. */
@@ -35,4 +37,4 @@ const specs = pages({ pictures }, store);
 process.stderr.write(`uicomponentsdemo: ${specs.length} pages, ${pictures.length} pictures, kept in ${statePath}\n`);
 
 // Every page is drawn in each viewer's language, the channel's words as text of it (REQ-2218, DEC-2233).
-await runChannel([new ComponentChannel(specs, { standIn: standInText, state: store })]);
+await runChannel([new ComponentChannel(specs, { standIn: standInText, state: store }), REFUSALS]);

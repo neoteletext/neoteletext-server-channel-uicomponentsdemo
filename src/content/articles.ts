@@ -70,7 +70,10 @@ export const ARTICLES: readonly SampleArticle[] = [
     tags: ["poll", "play"],
     blocks: [
       { kind: "paragraph", text: "A poll's tally is shared: one viewer's vote moves the bars on every screen with the page open." },
-      { kind: "paragraph", text: "A vote is kept while the viewer is on the channel, so coming back to the page does not cast it again." },
+      {
+        kind: "paragraph",
+        text: "A vote is the viewer's, not the tab's: their other tabs show it, and coming back, after a restart too, moves it rather than casting another.",
+      },
     ],
   },
   {

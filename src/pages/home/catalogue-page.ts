@@ -21,10 +21,10 @@ export class CataloguePage extends Component {
         shown: SHOWN,
         autoFocus: true,
         text: (entry) => `${entry.name.padEnd(NAME_CELLS)}${pageNumber(entry.page)} ${entry.what}`,
-        onChoose: (index, session) => {
+        onChoose: (index, connection) => {
           const chosen = CATALOGUE[index];
           if (chosen !== undefined) {
-            this.services.redirect(session, chosen.page);
+            this.services.redirect(connection, chosen.page);
           }
         },
       }),

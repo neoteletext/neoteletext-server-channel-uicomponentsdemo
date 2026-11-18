@@ -49,7 +49,7 @@ export function languagePages(): PageSpec[] {
     spec(
       PAGES.chooseLanguage,
       (params) => h(DemoFrame, { page: PAGES.chooseLanguage }, h(LanguageChoice, { home: PAGES.index, ...(params === undefined ? {} : { params }) })),
-      // It reads and sets each viewer's own language cookie: a copy of the page each.
+      // It reads and sets each viewer's own language: a copy of the page each.
       { ...IN_ENGLISH, ...OWN },
     ),
   ];

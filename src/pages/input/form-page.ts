@@ -38,14 +38,14 @@ interface FormState {
 export class FormPage extends Component<object, FormState> {
   override state: FormState = { name: "", plan: 0, news: false, sent: 0 };
 
-  readonly #send = (session: number): void => {
+  readonly #send = (connection: number): void => {
     const { name, plan } = this.state;
     if (name.trim() === "") {
-      this.services.bus.emit("toast", { kind: "error", text: "A name, please" }, { session });
+      this.services.bus.emit("toast", { kind: "error", text: "A name, please" }, { connection });
       return;
     }
     this.setState({ sent: this.state.sent + 1 });
-    this.services.bus.emit("toast", { kind: "success", text: `Thank you, ${name.trim()}: ${PLANS[plan] ?? ""}` }, { session });
+    this.services.bus.emit("toast", { kind: "success", text: `Thank you, ${name.trim()}: ${PLANS[plan] ?? ""}` }, { connection });
   };
 
   override render(): Child {

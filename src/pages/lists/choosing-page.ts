@@ -1,6 +1,9 @@
 // Page 304, lists to choose from: one item (ChoiceList), or several
-// (ToggleList). What a viewer chose is kept for them (REQ-1058): it is
-// there when they come back, after the program starts again too.
+// (ToggleList). What a viewer chose is kept for them under their viewer
+// handle (REQ-1058; viewer-state.md VS-405): their other tabs share it, and
+// it is there when they come back, after the program starts again too. A
+// tab the channel does not know keeps it for itself alone until the viewer
+// acts and is known (VS-407).
 
 import { Colour } from "neoteletext-server-ts-protocol";
 import { type Child, ChoiceList, Component, Gap, h, type KeptAs, Text, ToggleList } from "neoteletext-server-ts-ui-components";

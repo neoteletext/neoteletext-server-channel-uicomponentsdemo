@@ -2,13 +2,13 @@
 
 The NeoTeletext component library's demo: a teletext channel whose pages
 show the components of `neoteletext-server-ts-ui-components` working, a
-page or so to each, in eight magazines. It runs on the library's 19.0.1
-and the protocol kit 11.0.0 (program protocol 10). Beside the components
+page or so to each, in eight magazines. It runs on the library's 23.0.0
+and the protocol kit 15.0.0 (program protocol 13). Beside the components
 it shows the library's languages: a page in each of the 73 languages the
 engine has a set for, built of the same components in that language and
 scrolling in a scroll view; a language picker on 899 that draws the whole
-channel in the viewer's language, kept in a cookie; and five pages on
-cookies (110 to 114).
+channel in the viewer's language, kept for them; and five pages on what
+the channel knows of the viewer (110 to 114).
 
 It is a channel program: the server starts it and they talk in lines of
 JSON on its standard input and output (DOC-1964). It is built on two libraries of the server's,
@@ -49,19 +49,19 @@ The index is page 100. On every page green goes on to the next page and
 red back, yellow to the next magazine and cyan to the index, so the whole
 demo is one walk on the green key.
 
-One copy of the channel serves every language: 899 keeps your choice in
-the `language` cookie, and every page is then drawn in your language, its
+One copy of the channel serves every language: 899 keeps your choice for
+you, under your viewer handle, and every page is then drawn in your language, its
 words (titles, captions, list items, buttons, tabs, tickers) drawn as text
 of that language taken from its language page, the Universal Declaration
 of Human Rights (`src/pages/languages/sample-text.ts`, the library's
 stand-in text). Page numbers and the coloured keys' prompts stay as they
 are; 800, 801 and 899 stay English, the way to every language. The
-language and cookie files are shared word for word with the demo site;
+language and viewer pages' files are shared word for word with the demo site;
 `test/shared-files.test.ts` fails when they differ.
 
 | Magazine  | Pages                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Home      | 100 index, 101 components A to Z, 102 how it works, 103 a greeting; the cookies: 110 a visit counter, 111 a session cookie and a 30-day one, 112 a cookie that lapses in 60 seconds, 113 your cookies with a way to remove each, 114 the attributes                                                                                                                                        |
+| Home      | 100 index, 101 components A to Z, 102 how it works, 103 a greeting; what the channel knows of you: 110 whether it knows you, 111 a visit or remembered, 112 a visit counter kept for you, 113 forget me, 114 what is kept and why                                                                                                                                                          |
 | Text      | 200 styles, 201 rich text and badges, 202 news, 203 layout, 204 panels, 205 a document, 206 a day a sub-page, 210 to 214 the sample stories                                                                                                                                                                                                                                                |
 | Lists     | 300 tabs, 301 menus, 302 tree, 303 sections, 304 choosing, 305 tables, 306 logs                                                                                                                                                                                                                                                                                                            |
 | Figures   | 400 bars, 401 lines, 402 heat map, 403 clock, 404 countdown, 405 calendar                                                                                                                                                                                                                                                                                                                  |
