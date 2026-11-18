@@ -13,7 +13,7 @@ import { pages } from "../src/site/pages.ts";
 
 test("TS-25: a refused sound is logged with its path, rule and detail", () => {
   const store = new SqliteStateStore(IN_MEMORY);
-  const harness = new Harness([new ComponentChannel(pages({ pictures: [] }, store), { opus: fakeOpus(), state: store }), REFUSALS]);
+  const harness = new Harness([new ComponentChannel(pages({ pictures: [] }, store), { opus: fakeOpus(), ruleTables: "none", state: store }), REFUSALS]);
   harness.join(1, PAGES.sounds);
   harness.press(1, Key.Enter);
   const [sound] = harness.sounds(1);

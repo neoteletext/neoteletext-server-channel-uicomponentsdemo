@@ -2,8 +2,11 @@
 
 The NeoTeletext component library's demo: a teletext channel whose pages
 show the components of `neoteletext-server-ts-ui-components` working, a
-page or so to each, in eight magazines. It runs on the library's 23.0.0
-and the protocol kit 15.0.0 (program protocol 13). Beside the components
+page or so to each, in eight magazines. It runs on the library's 24.0.0
+and the protocol kit 16.0.0 (program protocol 14), with the library's rule
+tables off (`ruleTables: "none"`), so that its entry in the server's
+channels file says `"default_rules": "send_all"` and it is sent every
+input as before (DEC-6525 item 9). Beside the components
 it shows the library's languages: a page in each of the 73 languages the
 engine has a set for, built of the same components in that language and
 scrolling in a scroll view; a language picker on 899 that draws the whole

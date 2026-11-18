@@ -94,7 +94,13 @@ It copies each channel's working tree as it is, committed or not, so run
 it only when every channel's tree is ready to go live. The channels file
 names this channel:
 
-    {"folder":"uicomponentsdemo","name":"NeoTeletext UI components demo","command":["node","src/main.ts","--pictures","/opt/neoteletext/pictures","--state","/opt/neoteletext/state/uicomponentsdemo.sqlite"],"directory":"current/neoteletext-server-channel-uicomponentsdemo"}
+    {"folder":"uicomponentsdemo","name":"NeoTeletext UI components demo","command":["node","src/main.ts","--pictures","/opt/neoteletext/pictures","--state","/opt/neoteletext/state/uicomponentsdemo.sqlite"],"directory":"current/neoteletext-server-channel-uicomponentsdemo","default_rules":"send_all"}
+
+`"default_rules": "send_all"` goes with `ruleTables: "none"` in
+`src/main.ts`: the library writes no rule table, every page has the
+server's default table, and the channel is sent every input as before
+program protocol 14 (DEC-6525 item 9; page-rules.md RULE-53). Without it
+the channel is sent no input at all.
 
 The pictures are never in git. `/opt/neoteletext/pictures`, which the
 demo site reads too, is a copy of neoteletext-server-channels'

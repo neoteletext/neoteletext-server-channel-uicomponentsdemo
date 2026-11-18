@@ -13,7 +13,9 @@ export const STARTED = Date.UTC(2026, 9, 28, 12);
 
 /** The channel, its sounds encoded by the protocol's fake encoder, which runs nothing, keeping what lasts in `store`: a database in memory of its own when none is given. */
 export function channel(pictures: readonly PictureFile[] = [], store: SqliteStateStore = new SqliteStateStore(IN_MEMORY)): Harness {
-  return new Harness([new ComponentChannel(pages({ pictures }, store), { opus: fakeOpus(), standIn: standInText, state: store })], { epochMs: STARTED });
+  return new Harness([new ComponentChannel(pages({ pictures }, store), { opus: fakeOpus(), ruleTables: "none", standIn: standInText, state: store })], {
+    epochMs: STARTED,
+  });
 }
 
 /** The latest sub-page `connection` was sent of `page`: its own copy, else the channel's. */
